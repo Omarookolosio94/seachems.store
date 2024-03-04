@@ -7,7 +7,6 @@ module.exports = {
         brand: "#9747FF",
         shade: "#1A1A1A",
         green: "#27BE63",
-        white: "#FAFAFA",
         "black-shade": "#808080",
       }),
       fontFamily: {

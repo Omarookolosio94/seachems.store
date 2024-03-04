@@ -1,7 +1,7 @@
 import React from 'react';
-import { closeImg } from 'core/consts/images';
 import { activeSidenavLink, sidenavLink } from 'core/consts/styling';
 import { NavLink } from 'react-router-dom';
+import { XCircle } from 'react-feather';
 
 const Sidenav = ({
   close,
@@ -44,7 +44,7 @@ const Sidenav = ({
           className="absolute right-[30px] top-[30px]"
           onClick={() => close()}
         >
-          <img src={closeImg} alt="close" className="h-[32px] w-[32px]" />
+          <XCircle />
         </div>
       </nav>
       <div>
