@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Loader from 'core/components/Loader';
+import { ScrollToTop } from 'core/helpers/scrollToTop';
+import useProductStore from 'core/services/stores/useProduct.Store';
+import Public from 'modules/public/Public';
+import { ReactNotifications } from 'react-notifications-component';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const isProductStoreLoading = useProductStore((store) => store.isLoading);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {isProductStoreLoading && <Loader />}
+      <Router>
+        <ScrollToTop />
+        <ReactNotifications />
+        <Routes>
+          <Route path="/*" element={<Public />} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </Router>
+    </>
   );
-}
+};
 
 export default App;
