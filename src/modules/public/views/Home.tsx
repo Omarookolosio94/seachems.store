@@ -4,8 +4,16 @@ import { addMetaData } from "core/helpers/seoHelpers";
 import useProductStore from "core/services/stores/useProduct.Store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "react-feather";
+import {
+  ArrowLeftCircle,
+  ArrowRight,
+  ArrowRightCircle,
+  Package,
+} from "react-feather";
 import { product3 } from "core/consts/images";
+import Subheader from "core/components/Subheader";
+import { btn, listBox } from "core/consts/styling";
+import Product from "modules/partials/Product";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,8 +37,8 @@ const Home = () => {
       })}
 
       <div className="mx-auto mb-[34px] mt-[-20px] h-full w-11/12 overflow-hidden md:w-4/5">
-        <section className="flex h-[60vh] gap-5">
-          <div className="border-r-black-shade flex h-full w-3/12 flex-col gap-2 border-r pr-[10px] pt-[20px] text-[14px]">
+        <section className="mb-[38px] flex h-[60vh] gap-5">
+          <div className="flex h-full w-3/12 flex-col gap-2 border-r border-r-black-shade pr-[10px] pt-[20px] text-[14px]">
             <Link to="/products">All</Link>
             {categories?.length > 1 &&
               categories?.map((cat) => (
@@ -52,6 +60,56 @@ const Home = () => {
                 <img src={product3} alt="" />
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="mb-[38px]">
+          <Subheader shortHeader="Categories" fullHeader="Browse By Category">
+            <ArrowLeftCircle className="hover:cursor-pointer" />
+            <ArrowRightCircle className="hover:cursor-pointer" />
+          </Subheader>
+
+          <div className="flex gap-5">
+            {categories?.length > 1 &&
+              categories?.map((cat) => (
+                <Link
+                  to={`/products?category=${cat?.id}`}
+                  className={`${listBox}`}
+                >
+                  <div className="rounded-full border border-[6px] border-shade">
+                    <Package className="h-[32px] w-[32px]" />
+                  </div>
+                  <span>{cat?.name}</span>
+                </Link>
+              ))}
+          </div>
+        </section>
+
+        <section className="mb-[38px]">
+          <Subheader
+            shortHeader="Our Products"
+            fullHeader="Explore Our Products"
+          >
+            <ArrowLeftCircle className="hover:cursor-pointer" />
+            <ArrowRightCircle className="hover:cursor-pointer" />
+          </Subheader>
+
+          <div className="grid grid-cols-4 gap-5 mb-[28px]">
+            {productList?.products?.length > 0 ? (
+              productList?.products?.map((product) => (
+                <Product product={product} />
+              ))
+            ) : (
+              <>
+                <p>No products yet</p>
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center justify-center">
+            <Link to="/products" className={`${btn} bg-brand text-white text-[12px]`}>
+              View All Products
+            </Link>
           </div>
         </section>
       </div>

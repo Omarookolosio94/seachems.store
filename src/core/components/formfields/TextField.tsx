@@ -46,7 +46,7 @@ function TextField({
       <textarea
         className={`${
           label && label?.length > 0 ? "!mt-2" : ""
-        } rounded-[5px] border border-[.5px] border-line px-5 py-3 text-sm text-white outline-none disabled:cursor-not-allowed ${textareaStyle}`}
+        } rounded-[4px] border border-[.5px] border-line px-5 py-3 text-sm text-white outline-none disabled:cursor-not-allowed ${textareaStyle}`}
         placeholder={placeholder}
         name={name}
         value={value}

@@ -1,7 +1,7 @@
-import React from 'react';
-import { activeSidenavLink, sidenavLink } from 'core/consts/styling';
-import { NavLink } from 'react-router-dom';
-import { XCircle } from 'react-feather';
+import React from "react";
+import { activeSidenavLink, sidenavLink } from "core/consts/styling";
+import { NavLink } from "react-router-dom";
+import { XCircle } from "react-feather";
 
 const Sidenav = ({
   close,
@@ -13,7 +13,7 @@ const Sidenav = ({
   return (
     <div
       className={`fixed h-full w-full bg-black transition-all duration-500 ease-in-out ${
-        isOpen ? '-left-0' : '-left-[100vw]'
+        isOpen ? "-left-0" : "-left-[100vw]"
       }`}
       style={{
         zIndex: 1000,
@@ -49,7 +49,8 @@ const Sidenav = ({
       </nav>
       <div>
         <p className="text-center font-ui-sans text-xs uppercase text-gray-500">
-          &copy; {new Date().getFullYear()} Seachems.ng <br /> All Rights Reserved
+          &copy; {new Date().getFullYear()} Seachems.ng <br /> All Rights
+          Reserved
         </p>
       </div>
     </div>

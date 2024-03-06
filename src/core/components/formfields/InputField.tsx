@@ -74,7 +74,7 @@ function InputField({
         aria-autocomplete="none"
         className={`${
           label && label?.length > 0 ? "!mt-2" : ""
-        } flex h-12 w-full items-center justify-center rounded-[5px] border border-[.5px] border-line bg-shade px-4 py-3 text-sm text-white outline-none ${
+        } flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] border-line bg-shade px-4 py-3 text-sm text-white outline-none ${
           disabled === true
             ? "!cursor-not-allowed"
             : state === "error"

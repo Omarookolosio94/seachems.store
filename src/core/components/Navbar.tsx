@@ -62,7 +62,7 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
             </NavLink>
           </div>
           <div className="flex items-center justify-between gap-5">
-            <div className="flex items-center rounded-[5px] bg-[#f5f5f5] px-4">
+            <div className="flex items-center rounded-[4px] bg-[#f5f5f5] px-4">
               <input
                 type="text"
                 className="bg-transparent py-2 outline-none"

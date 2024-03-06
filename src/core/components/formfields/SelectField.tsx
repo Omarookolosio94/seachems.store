@@ -38,7 +38,7 @@ function SelectField({
       )}
       <select
         value={value}
-        className={`mt-2 flex h-12 w-full items-center justify-center rounded-[5px] border border-[.5px] border-line bg-shade px-4 py-3 text-sm text-white outline-none disabled:cursor-not-allowed ${selectStyle}`}
+        className={`mt-2 flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] border-line bg-shade px-4 py-3 text-sm text-white outline-none disabled:cursor-not-allowed ${selectStyle}`}
         name={name}
         onChange={onChange}
         onBlur={onBlur}
