@@ -1,5 +1,5 @@
 export const btn =
-  "flex items-center justify-center gap-2 px-[32px] py-[10px] text-[14px] rounded-[4px] transition duration-300 ease-in-out";
+  "flex items-center justify-center gap-2 px-[32px] py-[10px] text-[14px] rounded-[4px] transition duration-300 ease-in-out disabled:cursor-not-allowed";
 
 export const borderline =
   "rounded-[4px] border border-[.5px] border-[#344054] p-5";

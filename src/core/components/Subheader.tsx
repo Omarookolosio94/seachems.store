@@ -11,14 +11,16 @@ const Subheader = (props: Props) => {
         {props?.shortHeader}
       </p>
 
-      <div className="flex items-center justify-between">
-        <h5 className="text-[18px] font-[600] capitalize">
-          {props?.fullHeader}
-        </h5>
-        <div className="flex items-center gap-1 capitalize">
-          {props?.children}
+      {props?.fullHeader?.length > 0 && (
+        <div className="flex items-center justify-between">
+          <h5 className="text-[18px] font-[600] capitalize">
+            {props?.fullHeader}
+          </h5>
+          <div className="flex items-center gap-1 capitalize">
+            {props?.children}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

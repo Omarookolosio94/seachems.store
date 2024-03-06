@@ -19,7 +19,7 @@ const SingleProduct = () => {
 
       <div className="m-[0px] mx-auto mb-[34px] h-full w-11/12 overflow-hidden pt-[20px] md:w-4/5">
         <section className="mb-[28px]">
-          <header className="text-black-shade flex flex-wrap items-center gap-3 text-[12px]">
+          <header className="flex flex-wrap items-center gap-3 text-[12px] text-black-shade">
             <Link to="/" className="hover:underline">
               Home
             </Link>
@@ -32,6 +32,16 @@ const SingleProduct = () => {
             </Link>
           </header>
         </section>
+
+        <section>
+          <div className="flex items-center">
+            <p className="w-1/4">Product</p>
+            <p className="w-1/4">Price</p>
+            <p className="w-1/4">Quantity</p>
+            <p className="w-1/4">Subtotal</p>
+          </div>
+        </section>
+        
       </div>
     </>
   );

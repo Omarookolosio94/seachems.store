@@ -1,4 +1,3 @@
-import { btn } from "core/consts/styling";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Sidenav from "./Sidenav";
 import { useState } from "react";
@@ -19,7 +18,7 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
   return (
     <>
       <div
-        className={`border-b-black-shade bg-white fixed left-0 right-0 top-0 border-b-[0.5px]
+        className={`fixed left-0 right-0 top-0 border-b-[0.5px] border-b-black-shade bg-white
         `}
         style={{
           zIndex: 600,
@@ -70,7 +69,7 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
               />
               <Search className="hover:cursor-pointer" />
             </div>
-            <button className="relative">
+            <button className="relative" onClick={() => navigate("/cart")}>
               <ShoppingCart className="hover:cursor-pointer" />
               <span className="absolute top-0 h-[20px] w-[20px] rounded-full bg-brand text-white">
                 1

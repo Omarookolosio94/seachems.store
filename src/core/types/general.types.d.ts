@@ -9,4 +9,9 @@ declare global {
     path: string;
     secondary?: boolean;
   }
+
+  interface ValueProposition {
+    name: string;
+    description: string;
+  }
 }

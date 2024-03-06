@@ -5,6 +5,7 @@ import { createJSONStorage, devtools, persist } from "zustand/middleware";
 type State = {
   isLoading: boolean;
   productList: { products: Product[] };
+  cart: Cart[];
   categories: Category[];
   getProducts: () => Promise<void>;
   getCategories: () => Promise<void>;
@@ -15,6 +16,7 @@ const initialState = {
   isLoading: false,
   productList: { products: [] },
   categories: [],
+  cart: [],
 };
 
 const useProductStore = create<State>()(

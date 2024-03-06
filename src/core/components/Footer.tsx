@@ -1,4 +1,5 @@
 import { logoImg } from "core/consts/images";
+import { ArrowUpCircle } from "react-feather";
 import { Link, NavLink } from "react-router-dom";
 
 const Footer = () => {

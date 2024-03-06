@@ -39,4 +39,10 @@ declare global {
     dateAdded: string;
     lastUpdated: string;
   }
+
+  interface Cart {
+    productId: string;
+    product: Product | null;
+    quantity: number;
+  }
 }

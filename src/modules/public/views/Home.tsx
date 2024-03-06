@@ -1,7 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
-import useProductStore from "core/services/stores/useProduct.Store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -14,10 +13,11 @@ import { product3 } from "core/consts/images";
 import Subheader from "core/components/Subheader";
 import { btn, listBox } from "core/consts/styling";
 import Product from "modules/partials/Product";
+import useProductStore from "core/services/stores/useProductStore";
+import ValueProposition from "modules/partials/ValueProposition";
 
 const Home = () => {
   const navigate = useNavigate();
-
   const categories = useProductStore((store) => store.categories);
   const getCategories = useProductStore((store) => store.getCategories);
 
@@ -45,6 +45,7 @@ const Home = () => {
                 <Link to={`/products?category=${cat?.id}`}>{cat?.name}</Link>
               ))}
           </div>
+
           <div className="h-full w-9/12 pt-5">
             <div className="item-center flex h-full w-full bg-black">
               <div className="flex h-full w-1/2 flex-col justify-center p-8 text-white">
@@ -94,7 +95,7 @@ const Home = () => {
             <ArrowRightCircle className="hover:cursor-pointer" />
           </Subheader>
 
-          <div className="grid grid-cols-4 gap-5 mb-[28px]">
+          <div className="mb-[28px] grid grid-cols-4 gap-5">
             {productList?.products?.length > 0 ? (
               productList?.products?.map((product) => (
                 <Product product={product} />
@@ -107,11 +108,16 @@ const Home = () => {
           </div>
 
           <div className="flex items-center justify-center">
-            <Link to="/products" className={`${btn} bg-brand text-white text-[12px]`}>
+            <Link
+              to="/products"
+              className={`${btn} bg-brand text-[12px] text-white`}
+            >
               View All Products
             </Link>
           </div>
         </section>
+
+        <ValueProposition />
       </div>
     </>
   );
