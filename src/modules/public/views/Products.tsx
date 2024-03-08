@@ -3,17 +3,26 @@ import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
 import useProductStore from "core/services/stores/useProductStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Subheader from "core/components/Subheader";
 import Product from "modules/partials/Product";
-import { btn } from "core/consts/styling";
 import Pagination from "core/components/Pagination";
+import Modal from "core/components/Modal";
+import ProductDetail from "modules/partials/ProductDetail";
 
 const Products = () => {
   const navigate = useNavigate();
 
   const productList = useProductStore((store) => store.productList);
   const getProducts = useProductStore((store) => store.getProducts);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [openProductModal, setOpenProductModal] = useState(false);
+
+  const handleViewProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setOpenProductModal(true);
+  };
 
   useEffect(() => {
     productList != null && productList?.products?.length < 1 && getProducts();
@@ -45,7 +54,7 @@ const Products = () => {
           <div className="mb-[28px] grid grid-cols-4 gap-5">
             {productList?.products?.length > 0 ? (
               productList?.products?.map((product) => (
-                <Product product={product} />
+                <Product product={product} handleOpen={handleViewProduct} />
               ))
             ) : (
               <>
@@ -62,6 +71,18 @@ const Products = () => {
           />
         </section>
       </div>
+
+      {openProductModal && (
+        <Modal
+          bodyStyle="w-11/12 md:w-11/12 lg:w-11/12"
+          onClose={() => {
+            setSelectedProduct(null);
+            setOpenProductModal(false);
+          }}
+        >
+          <ProductDetail product={selectedProduct} />
+        </Modal>
+      )}
     </>
   );
 };

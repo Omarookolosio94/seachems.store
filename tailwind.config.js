@@ -8,6 +8,7 @@ module.exports = {
         shade: "#f5f5f5",
         green: "#27BE63",
         "black-shade": "#808080",
+        "gray": "#7D8184"
       }),
       fontFamily: {
         "ui-sans":

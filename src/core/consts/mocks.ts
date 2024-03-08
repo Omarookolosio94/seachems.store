@@ -2,13 +2,13 @@ export const MOCK_PRODUCTS = [
   {
     id: "f26da888-bf57-43d1-355f-08dbe2fb414f",
     name: "Shampoo Condenser",
-    description: "",
+    description: "Quality chemicals at affordable pricing",
     categoryId: "295e9fc9-11f2-4c2a-4214-08dbb564d1fb",
     category: {
       id: "295e9fc9-11f2-4c2a-4214-08dbb564d1fb",
       employerId: "85adf4d4-b200-4b7e-5fbd-08dbb0202956",
       name: "Foot wears",
-      description: "",
+      description: "Get the best clothing accessories",
       addedBy: "Maro Okolosio - MANAGER",
       updatedBy: "Maro Okolosio - MANAGER",
       dateAdded: "2023-09-14T21:54:42.7293165",

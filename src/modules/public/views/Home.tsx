@@ -1,20 +1,17 @@
 /* eslint-disable no-template-curly-in-string */
 import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowLeftCircle,
-  ArrowRight,
-  ArrowRightCircle,
-  Package,
-} from "react-feather";
+import { ArrowRight, Package } from "react-feather";
 import { product3 } from "core/consts/images";
 import Subheader from "core/components/Subheader";
 import { btn, listBox } from "core/consts/styling";
 import Product from "modules/partials/Product";
 import useProductStore from "core/services/stores/useProductStore";
 import ValueProposition from "modules/partials/ValueProposition";
+import Modal from "core/components/Modal";
+import ProductDetail from "modules/partials/ProductDetail";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,6 +20,14 @@ const Home = () => {
 
   const productList = useProductStore((store) => store.productList);
   const getProducts = useProductStore((store) => store.getProducts);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [openProductModal, setOpenProductModal] = useState(false);
+
+  const handleViewProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setOpenProductModal(true);
+  };
 
   useEffect(() => {
     categories?.length < 1 && getCategories();
@@ -47,7 +52,7 @@ const Home = () => {
           </div>
 
           <div className="h-full w-9/12 pt-5">
-            <div className="item-center flex h-full w-full bg-black">
+            <div className="item-center overflow-hidden rounded-[4px] flex h-full w-full bg-black">
               <div className="flex h-full w-1/2 flex-col justify-center p-8 text-white">
                 <p className="mb-5 text-[24px] font-[500]">
                   Your One-Stop Shop for Wholesale Chemicals in Nigeria
@@ -65,10 +70,7 @@ const Home = () => {
         </section>
 
         <section className="mb-[38px]">
-          <Subheader shortHeader="Categories" fullHeader="Browse By Category">
-            <ArrowLeftCircle className="hover:cursor-pointer" />
-            <ArrowRightCircle className="hover:cursor-pointer" />
-          </Subheader>
+          <Subheader shortHeader="Categories" fullHeader="Browse By Category" />
 
           <div className="flex gap-5">
             {categories?.length > 1 &&
@@ -90,15 +92,16 @@ const Home = () => {
           <Subheader
             shortHeader="Our Products"
             fullHeader="Explore Our Products"
-          >
-            <ArrowLeftCircle className="hover:cursor-pointer" />
-            <ArrowRightCircle className="hover:cursor-pointer" />
-          </Subheader>
+          />
 
           <div className="mb-[28px] grid grid-cols-4 gap-5">
             {productList?.products?.length > 0 ? (
               productList?.products?.map((product) => (
-                <Product product={product} />
+                <Product
+                  key={product?.id}
+                  product={product}
+                  handleOpen={handleViewProduct}
+                />
               ))
             ) : (
               <>
@@ -119,6 +122,18 @@ const Home = () => {
 
         <ValueProposition />
       </div>
+
+      {openProductModal && (
+        <Modal
+          bodyStyle="w-11/12 md:w-11/12 lg:w-11/12"
+          onClose={() => {
+            setSelectedProduct(null);
+            setOpenProductModal(false);
+          }}
+        >
+          <ProductDetail product={selectedProduct} />
+        </Modal>
+      )}
     </>
   );
 };

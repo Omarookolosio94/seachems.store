@@ -70,7 +70,19 @@ const Footer = () => {
 
               <div className="flex flex-col gap-5">
                 <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-[12px] underline hover:underline "
+                      : "text-[12px] hover:underline "
+                  }
+                >
+                  Contact
+                </NavLink>
+
+                <NavLink
                   to="/privacy"
+                  //onClick={(e: any) => e.preventDefault()}
                   className={({ isActive }) =>
                     isActive
                       ? "text-[12px] underline hover:underline"
@@ -81,23 +93,14 @@ const Footer = () => {
                 </NavLink>
                 <NavLink
                   to="/terms"
+                  //onClick={(e: any) => e.preventDefault()}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-[12px] underline hover:underline"
+                      ? "text-[12px] underline hover:underline "
                       : "text-[12px] hover:underline"
                   }
                 >
                   Terms of Use
-                </NavLink>
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-[12px] underline hover:underline"
-                      : "text-[12px] hover:underline"
-                  }
-                >
-                  Contact
                 </NavLink>
               </div>
             </div>
@@ -124,7 +127,7 @@ const Footer = () => {
           <div className="border-t border-t-[.5px] border-t-[#d9d9d9]">
             <div className="mx-auto flex flex-col items-center justify-between gap-3 py-[20px] text-[12px] md:flex-row">
               <p>
-                &copy; {new Date().getFullYear()} Seachems.ng. All rights
+                &copy; 2012 - {new Date().getFullYear()} Seachems.ng. All rights
                 reserved.
               </p>
             </div>

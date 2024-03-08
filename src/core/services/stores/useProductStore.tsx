@@ -5,10 +5,12 @@ import { createJSONStorage, devtools, persist } from "zustand/middleware";
 type State = {
   isLoading: boolean;
   productList: { products: Product[] };
+  product: Product | null;
   cart: Cart[];
   categories: Category[];
   getProducts: () => Promise<void>;
   getCategories: () => Promise<void>;
+  getProductById: (id: string) => Promise<void>;
   reset: () => void;
 };
 
@@ -16,6 +18,7 @@ const initialState = {
   isLoading: false,
   productList: { products: [] },
   categories: [],
+  product: null,
   cart: [],
 };
 
@@ -35,6 +38,13 @@ const useProductStore = create<State>()(
           set({ isLoading: true });
 
           set({ categories: MOCK_CATEGORIES });
+
+          set({ isLoading: false });
+        },
+        getProductById: async (id) => {
+          set({ isLoading: true });
+
+          set({ product: MOCK_PRODUCTS[0] });
 
           set({ isLoading: false });
         },

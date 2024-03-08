@@ -25,24 +25,29 @@ export default function Modal({
     >
       <div className="flex h-full w-full items-center justify-center gap-1">
         <div
-          className={`mx-auto w-11/12 rounded-[5px] bg-white !p-8 sm:w-2/3 md:w-[65%] lg:w-1/3 ${bodyStyle}`}
+          className={`mx-auto h-[95%] w-11/12 rounded-[5px] bg-white !p-5 sm:w-2/3 md:w-[65%] lg:w-1/3 overflow-y-scroll ${bodyStyle}`}
         >
           <div className="flex items-center justify-between">
+
             <div className="flex w-full flex-col items-center justify-center">
-              <p className="ww-full text-[18px] font-[600] text-brand">
+              <p className="text-[18px] font-[600] text-brand">
                 {header}
               </p>
+
               <p className="text-[14px]">{instruction}</p>
             </div>
+
             <button
               type="button"
-              className="rounded-full border border-[#6C18A4BF] p-2"
               onClick={onClose}
             >
               <XCircle />
             </button>
+
           </div>
-          <div className="mt-[25px]">{children}</div>
+
+          <div className="mt-[10px]">{children}</div>
+
         </div>
       </div>
     </div>

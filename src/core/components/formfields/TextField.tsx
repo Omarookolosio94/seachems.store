@@ -39,14 +39,12 @@ function TextField({
   return (
     <div className={`relative ${boxStyle}`}>
       {label && label?.length > 0 && (
-        <label htmlFor={name} className="text-[14px] text-line">
+        <label htmlFor={name} className="text-gray mb-2 text-[12px]">
           {label} {isRequired && <span className="text-red-500">*</span>}
         </label>
       )}{" "}
       <textarea
-        className={`${
-          label && label?.length > 0 ? "!mt-2" : ""
-        } rounded-[4px] border border-[.5px] border-line px-5 py-3 text-sm text-white outline-none disabled:cursor-not-allowed ${textareaStyle}`}
+        className={`rounded-[4px] border border-[.5px] bg-shade px-5 py-3 text-sm outline-none disabled:cursor-not-allowed ${textareaStyle}`}
         placeholder={placeholder}
         name={name}
         value={value}

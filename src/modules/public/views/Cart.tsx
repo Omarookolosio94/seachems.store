@@ -2,15 +2,30 @@
 import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
-import { product3 } from "core/consts/images";
+import { product2, product3 } from "core/consts/images";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import { Minus, Plus, XCircle } from "react-feather";
-import { btn } from "core/consts/styling";
+import { btn, invoiceGroup } from "core/consts/styling";
+import PlusMinusField from "core/components/formfields/PlusMinusField";
+import { useState } from "react";
 
 const Cart = () => {
   const navigate = useNavigate();
 
   // TODO: Make cart items a component
+  const [qty, setQty] = useState(1);
+
+  /*
+  const onSubCategoryChange = (e: any, index: number) => {
+    const { name, value }: any = e?.target;
+
+    const data: any = [...subCategories];
+    data[index][name] = value;
+
+    setSubCategories(data);
+
+    setNewProduct((state: any) => ({ ...state, hotelCategories: data }));
+  };*/
 
   // TODO: Add empty state for cart
   return (
@@ -42,49 +57,22 @@ const Cart = () => {
           </div>
 
           <div className="mb-5 flex items-center rounded-[4px] border p-4 shadow-sm">
-            <div className="flex w-1/4 items-center gap-3">
+            <div
+              className="flex w-1/4 items-center gap-3 hover:cursor-pointer"
+              onClick={() => navigate(`/products/sasasasasas`)}
+            >
               <img src={product3} alt="" className="w-[32px]" />
               <p>Monitor</p>
             </div>
-            <p className="w-1/4">{formatCurrency(20000)}</p>
-            <div className="flex w-1/4 items-center gap-2">
-              <button>
-                <Plus />
-              </button>
-              <input
-                type="number"
-                className="w-1/4 rounded-[4px] border p-2 outline-none"
-              />
-              <button>
-                <Minus />
-              </button>
-            </div>
-            <div className="flex w-1/4 items-center justify-between">
-              <p className="text-[14px]">{formatCurrency(50000)}</p>
-              <button>
-                <XCircle className="text-red-500" />
-              </button>
-            </div>
-          </div>
 
-          <div className="mb-5 flex items-center rounded-[4px] border p-4 shadow-sm">
-            <div className="flex w-1/4 items-center gap-3">
-              <img src={product3} alt="" className="w-[32px]" />
-              <p>Monitor</p>
-            </div>
             <p className="w-1/4">{formatCurrency(20000)}</p>
-            <div className="flex w-1/4 items-center gap-2">
-              <button>
-                <Plus />
-              </button>
-              <input
-                type="number"
-                className="w-1/4 rounded-[4px] border p-2 outline-none"
-              />
-              <button>
-                <Minus />
-              </button>
-            </div>
+
+            <PlusMinusField
+              qty={qty}
+              setQty={setQty}
+              boxStyle="flex w-1/4 items-center"
+            />
+
             <div className="flex w-1/4 items-center justify-between">
               <p className="text-[14px]">{formatCurrency(50000)}</p>
               <button>
@@ -112,17 +100,17 @@ const Cart = () => {
             <p className="mb-5 font-[500]">Cart Total</p>
 
             <div className="mb-5">
-              <div className="flex items-center justify-between border-b py-3">
+              <div className={`${invoiceGroup}`}>
                 <p>Subtotal:</p>
                 <p>{formatCurrency(60000)}</p>
               </div>
 
-              <div className="flex items-center justify-between border-b py-3">
+              <div className={`${invoiceGroup}`}>
                 <p>Shipping:</p>
                 <p>To be determined</p>
               </div>
 
-              <div className="flex items-center justify-between border-b py-3">
+              <div className={`${invoiceGroup}`}>
                 <p>Total:</p>
                 <p>{formatCurrency(60000)}</p>
               </div>

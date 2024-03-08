@@ -2,13 +2,34 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
+import { isObjectEmpty } from "core/helpers/generalHelpers";
+import { useEffect } from "react";
+import useProductStore from "core/services/stores/useProductStore";
+import Subheader from "core/components/Subheader";
+import Product from "modules/partials/Product";
+import ProductDetail from "modules/partials/ProductDetail";
 
 const SingleProduct = () => {
   const navigate = useNavigate();
 
-  const product = { name: "Te ha", id: "asa" };
+  const product = useProductStore((store) => store.product);
+  const productList = useProductStore((store) => store.productList);
+  const getProductById = useProductStore((store) => store.getProductById);
+  const getProducts = useProductStore((store) => store.getProducts);
 
   const { productId } = useParams();
+
+  useEffect(() => {
+    if (productId == null || productId?.length < 1) {
+      navigate("/products");
+    } else {
+      if (isObjectEmpty(product) || product?.id !== productId) {
+        getProductById(productId);
+      }
+    }
+
+    getProducts();
+  }, [productId]);
 
   return (
     <>
@@ -24,24 +45,51 @@ const SingleProduct = () => {
               Home
             </Link>
             <span>/</span>
-            <Link
-              to={`/products/${product?.id}`}
-              className="text-black hover:underline"
-            >
-              {product?.name}
+            <Link to="/products" className="hover:underline">
+              Product
             </Link>
+            <span>/</span>
+            {product != null && (
+              <>
+                <Link
+                  to={`/products?category=${product?.category?.name}`}
+                  className="capitalize hover:underline"
+                >
+                  {product?.category?.name}
+                </Link>
+                <span>/</span>
+                <Link
+                  to={`/products/${product?.id}`}
+                  className="capitalize text-black hover:underline"
+                >
+                  {product?.name}
+                </Link>
+              </>
+            )}
           </header>
         </section>
 
-        <section>
-          <div className="flex items-center">
-            <p className="w-1/4">Product</p>
-            <p className="w-1/4">Price</p>
-            <p className="w-1/4">Quantity</p>
-            <p className="w-1/4">Subtotal</p>
+        {product !== null && (
+          <ProductDetail product={product} boxStyle="mb-[48px]" />
+        )}
+
+        <section className="mb-[38px]">
+          <Subheader shortHeader="Related Item" fullHeader="" />
+
+          <div className="mb-[28px] grid grid-cols-4 gap-5">
+            {productList?.products?.length > 0 ? (
+              productList?.products
+                ?.slice(0, 4)
+                ?.map((product) => (
+                  <Product product={product} allowExpansion={false} />
+                ))
+            ) : (
+              <>
+                <p>No products yet</p>
+              </>
+            )}
           </div>
         </section>
-        
       </div>
     </>
   );

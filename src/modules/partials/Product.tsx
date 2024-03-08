@@ -1,24 +1,39 @@
 import { product3 } from "core/consts/images";
 import { formatCurrency } from "core/helpers/generalHelpers";
-import { Eye, ShoppingCart } from "react-feather";
+import { Maximize, ShoppingCart } from "react-feather";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
   product: Product | null;
+  handleOpen?: any;
+  allowExpansion?: boolean;
 }
 
-const Product = ({ product = null }: Props) => {
+const Product = ({
+  product = null,
+  handleOpen = () => {},
+  allowExpansion = true,
+}: Props) => {
   const navigate = useNavigate();
 
   return (
     <div
-      key={product?.id}
       className="h-[322px] hover:cursor-pointer"
       onClick={() => navigate(`/products/${product?.id}`)}
     >
       <div className="relative h-4/5 !rounded-[4px] bg-shade">
         <div className="relative flex h-[90%] flex-row items-center justify-center">
-          <Eye className="absolute right-[10px] top-[10px] h-[18px] hover:cursor-pointer" />
+          {allowExpansion && (
+            <div
+              className="absolute right-[10px] top-[10px] p-2 hover:cursor-pointer "
+              onClick={(e: any) => {
+                e?.stopPropagation();
+                handleOpen(product);
+              }}
+            >
+              <Maximize className="h-[24px]" />
+            </div>
+          )}
           <img src={product3} alt={product?.name} className="h-2/3" />
         </div>
 

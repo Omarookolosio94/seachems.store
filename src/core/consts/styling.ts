@@ -15,3 +15,9 @@ export const fetchBtn =
 
 export const listBox =
   "flex h-[135px] w-[160px] flex-col items-center justify-center gap-5 rounded-[4px] border text-[12px] hover:bg-brand hover:text-white";
+
+export const invoiceGroup =
+  "border-b-gray flex items-center justify-between border-b py-3";
+
+export const gallery =
+  "rounded-[4px] bg-[#f5f5f5] mb-3 w-[120px] h-[120px] flex items-center justify-center flex-row hover:cursor-pointer";
