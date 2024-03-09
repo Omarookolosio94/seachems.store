@@ -92,11 +92,11 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
               <PlusMinusField
                 qty={qty}
                 setQty={setQty}
-                boxStyle="flex !w-full lg:!w-1/2 !h-8 items-center"
+                boxStyle="flex !w-full lg:!w-1/2 !h-10 items-center"
               />
 
               <button
-                className={`${btn} !h-8 !w-full bg-brand text-[12px] font-[500] text-white lg:!w-1/2`}
+                className={`${btn} !h-10 !w-full bg-brand text-[12px] font-[500] text-white lg:!w-1/2`}
               >
                 <ShoppingBag className="h-[14px]" />
                 <span>Add to Cart</span>

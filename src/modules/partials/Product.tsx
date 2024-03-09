@@ -18,14 +18,14 @@ const Product = ({
 
   return (
     <div
-      className="h-[260px] sm:h-[322px] hover:cursor-pointer"
+      className="h-[260px] hover:cursor-pointer sm:h-[322px]"
       onClick={() => navigate(`/products/${product?.id}`)}
     >
       <div className="relative h-4/5 !rounded-[4px] bg-shade">
         <div className="relative flex h-[90%] flex-row items-center justify-center">
           {allowExpansion && (
             <div
-              className="absolute right-[2px] top-[2px] lg:right-[5px] lg:top-[5px] p-2 hover:cursor-pointer "
+              className="absolute right-[2px] top-[2px] p-2 hover:cursor-pointer lg:right-[5px] lg:top-[5px] "
               onClick={(e: any) => {
                 e?.stopPropagation();
                 handleOpen(product);
@@ -37,7 +37,13 @@ const Product = ({
           <img src={product3} alt={product?.name} className="h-2/3" />
         </div>
 
-        <button className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[8px] text-[12px] text-white">
+        <button
+          onClick={(e: any) => {
+            e?.stopPropagation();
+            alert("item added to cart");
+          }}
+          className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[10px] text-[12px] text-white"
+        >
           <ShoppingCart className="h-[12px] w-[12px]" />
           <span className="inline-block">Add to Cart</span>
         </button>

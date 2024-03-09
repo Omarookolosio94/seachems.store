@@ -69,7 +69,7 @@ const Contact = () => {
                 </a>
               </div>
 
-              <div className="w-1/2 lg:w-full">
+              <div className="w-full sm:w-1/2 lg:w-full">
                 <div className="mb-3 flex items-center gap-2">
                   <div className="rounded-full bg-brand p-2">
                     <Mail className="h-[14px] w-[14px] text-white" />
@@ -136,7 +136,7 @@ const Contact = () => {
 
               <div className="flex items-center justify-end">
                 <button
-                  className={`${btn} border bg-brand text-[12px] font-[500] text-white`}
+                  className={`${btn} w-full border bg-brand text-[12px] font-[500] text-white sm:w-1/3 lg:w-1/3`}
                 >
                   Send Message
                 </button>

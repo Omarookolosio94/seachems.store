@@ -4,6 +4,7 @@ import { useState } from "react";
 import { logoImg } from "core/consts/images";
 import { Menu, Search, ShoppingCart } from "react-feather";
 import Modal from "./Modal";
+import SearchBox from "./SearchBox";
 
 const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
   const navigate = useNavigate();
@@ -68,14 +69,11 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
           </div>
 
           <div className="flex items-center justify-between gap-3 lg:gap-5">
-            <div className="hidden items-center justify-between rounded-[4px] bg-[#f5f5f5] px-2 sm:flex">
-              <input
-                type="text"
-                className=" w-[90%] bg-transparent py-2 outline-none"
-                placeholder="what are you looking for"
-              />
-              <Search className="h-[14px] hover:cursor-pointer" />
-            </div>
+            <SearchBox
+              formStyle="hidden items-center justify-between rounded-[4px] bg-[#f5f5f5] px-2 sm:flex"
+              closeModal={() => setShowSearch(false)}
+            />
+
             <button
               className="block sm:hidden"
               onClick={() => {
@@ -91,7 +89,7 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
               </span>
             </button>
             <button
-              className="block sm:hidden"
+              className="block ml-2 sm:hidden"
               onClick={() => setSidenav(!showSidenav)}
             >
               <Menu />
@@ -103,16 +101,11 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
       <Sidenav isOpen={showSidenav} close={() => setSidenav(false)} />
 
       {showSearch && (
-        <Modal bodyStyle="h-[25%]" onClose={() => setShowSearch(false)}>
-          <div className="mt-3 flex items-center justify-between rounded-[4px] bg-[#f5f5f5] px-5">
-            <input
-              type="text"
-              className="w-[90%] bg-transparent py-2 outline-none"
-              placeholder="what are you looking for"
-            />
-
-            <Search className="h-[14px] hover:cursor-pointer" />
-          </div>
+        <Modal bodyStyle="!h-[25%]" onClose={() => setShowSearch(false)}>
+          <SearchBox
+            formStyle="mt-3 flex items-center justify-between rounded-[4px] bg-[#f5f5f5] px-5"
+            closeModal={() => setShowSearch(false)}
+          />
         </Modal>
       )}
     </>

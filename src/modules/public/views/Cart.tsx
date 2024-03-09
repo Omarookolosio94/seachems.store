@@ -74,7 +74,7 @@ const Cart = () => {
               <PlusMinusField
                 qty={qty}
                 setQty={setQty}
-                boxStyle="flex items-center"
+                boxStyle="flex !h-10 items-center"
               />
             </div>
 
@@ -127,7 +127,7 @@ const Cart = () => {
             <div className="flex items-center justify-center">
               <Link
                 to="/checkout"
-                className={`${btn} !px-[32px] border bg-brand text-[12px] font-[500] text-white`}
+                className={`${btn} w-full !px-[32px] border bg-brand text-[12px] font-[500] text-white`}
               >
                 Proceed To Checkout
               </Link>

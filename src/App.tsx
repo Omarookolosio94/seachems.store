@@ -14,6 +14,7 @@ import {
 const App = () => {
   const isProductStoreLoading = useProductStore((store) => store.isLoading);
 
+  // TODO: Lazy load component
   return (
     <>
       {isProductStoreLoading && <Loader />}

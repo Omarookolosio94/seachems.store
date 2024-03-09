@@ -115,7 +115,7 @@ const Home = () => {
           <div className="flex items-center justify-center">
             <Link
               to="/products"
-              className={`${btn} bg-brand text-[12px] text-white`}
+              className={`${btn} w-2/3 bg-brand text-[12px] text-white sm:w-1/3 lg:w-1/4`}
             >
               View All Products
             </Link>
