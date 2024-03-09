@@ -5,10 +5,10 @@ export const borderline =
   "rounded-[4px] border border-[.5px] border-[#344054] p-5";
 
 export const sidenavLink =
-  "text-[28px] font-[600] transition duration-300 ease-in-out uppercase hover:scale-105 hover:text-white";
+  "text-[18px] font-[500] uppercase text-white hover:underline";
 
 export const activeSidenavLink =
-  "text-[28px] font-[600] transition duration-300 ease-in-out uppercase hover:scale-105 hover:text-naturegreen";
+  "text-[18px] font-[500] text-underline text-white uppercase hover:underline";
 
 export const fetchBtn =
   "text-white flex items-center text-[14px] hover:bg-brand py-2 px-3 h-[25px] w-auto rounded-[3px] disabled:cursor-not-allowed";

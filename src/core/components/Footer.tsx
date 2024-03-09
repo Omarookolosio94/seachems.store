@@ -7,9 +7,12 @@ const Footer = () => {
     <>
       <footer className="bg-[#111111] text-white">
         <div className="mx-auto w-11/12 pt-[75px] md:w-4/5">
-          <div className="mb-[48px] grid grid-cols-5 gap-4">
-            <div className="col-span-2 ">
-              <Link to="/home" className="mb-5 flex items-center gap-1">
+          <div className="mb-[48px] grid grid-cols-4 grid-cols-5 gap-5">
+            <div className="col-span-5 text-center md:col-span-2 md:text-start">
+              <Link
+                to="/home"
+                className="mb-5 flex items-center justify-center gap-1 md:justify-start"
+              >
                 <img
                   src={logoImg}
                   alt="Seachems.ng"
@@ -28,10 +31,12 @@ const Footer = () => {
               </p>
             </div>
 
-            <div>
-              <h5 className="mb-5 text-[14px] font-[500]">Account</h5>
+            <div className="col-span-5 md:col-span-1">
+              <h5 className="mb-1 text-center text-[14px] font-[500] md:mb-5 md:text-start">
+                Account
+              </h5>
 
-              <div className="flex flex-col gap-5">
+              <div className="flex justify-center gap-5 md:flex-col md:justify-start">
                 <NavLink
                   to="/products"
                   className={({ isActive }) =>
@@ -65,10 +70,12 @@ const Footer = () => {
               </div>
             </div>
 
-            <div>
-              <h5 className="mb-5 text-[14px] font-[500]">Quick Links</h5>
+            <div className="col-span-5 md:col-span-1">
+              <h5 className="mb-1 text-center text-[14px] font-[500] md:mb-5 md:text-start">
+                Quick Links
+              </h5>
 
-              <div className="flex flex-col gap-5">
+              <div className="flex justify-center gap-5 md:flex-col md:justify-start">
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
@@ -105,10 +112,12 @@ const Footer = () => {
               </div>
             </div>
 
-            <div>
-              <h5 className="mb-5 text-[14px] font-[500]">Support</h5>
+            <div className="col-span-5 md:col-span-1">
+              <h5 className="mb-1 text-center text-[14px] font-[500] md:mb-5 md:text-start">
+                Support
+              </h5>
 
-              <div className="flex flex-col gap-5 text-[12px]">
+              <div className="flex flex-col items-center gap-2 text-[12px] md:items-start md:gap-5">
                 <p>48 Lagos Street Lagos</p>
 
                 <a

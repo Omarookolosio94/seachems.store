@@ -17,7 +17,7 @@ export default function Modal({
 }) {
   return (
     <div
-      className={`no-scrollbar overlay fixed left-0 top-0 z-40 h-screen w-screen overflow-auto bg-[#6C18A4BF] bg-opacity-10 ${boxStyle}`}
+      className={`no-scrollbar overlay fixed left-0 top-0 z-40 h-screen w-screen overflow-auto bg-black bg-opacity-[.6] ${boxStyle}`}
       style={{
         minHeight: "calc(100vh - 72px)",
         zIndex: 800,

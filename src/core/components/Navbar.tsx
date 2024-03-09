@@ -2,11 +2,14 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import Sidenav from "./Sidenav";
 import { useState } from "react";
 import { logoImg } from "core/consts/images";
-import { Search, ShoppingCart } from "react-feather";
+import { Menu, Search, ShoppingCart } from "react-feather";
+import Modal from "./Modal";
 
 const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
   const navigate = useNavigate();
   const [showSidenav, setSidenav] = useState(false);
+
+  const [showSearch, setShowSearch] = useState(false);
 
   const logout = () => {
     sessionStorage.clear();
@@ -30,11 +33,14 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
               src={logoImg}
               alt="Seachems.ng"
               loading="lazy"
-              className="w-[18px]"
+              className="h-[28px] w-[28px] min-w-[28px]"
             />
-            <span className="font-[600] uppercase">SEACHEMS.NG</span>
+            <span className="hidden text-[16px] font-[600] lg:block">
+              Ocean Global Chemicals
+            </span>
           </Link>
-          <div className="flex items-center justify-between gap-10 text-[14px]">
+
+          <div className="hidden items-center justify-between gap-5 text-[14px] sm:flex lg:gap-10">
             <NavLink
               to="/home"
               className={({ isActive }) =>
@@ -60,26 +66,55 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
               Contact
             </NavLink>
           </div>
-          <div className="flex items-center justify-between gap-5">
-            <div className="flex items-center rounded-[4px] bg-[#f5f5f5] px-4">
+
+          <div className="flex items-center justify-between gap-3 lg:gap-5">
+            <div className="hidden items-center justify-between rounded-[4px] bg-[#f5f5f5] px-2 sm:flex">
               <input
                 type="text"
-                className="bg-transparent py-2 outline-none"
+                className=" w-[90%] bg-transparent py-2 outline-none"
                 placeholder="what are you looking for"
               />
-              <Search className="hover:cursor-pointer" />
+              <Search className="h-[14px] hover:cursor-pointer" />
             </div>
+            <button
+              className="block sm:hidden"
+              onClick={() => {
+                setShowSearch(true);
+              }}
+            >
+              <Search />
+            </button>
             <button className="relative" onClick={() => navigate("/cart")}>
-              <ShoppingCart className="hover:cursor-pointer" />
+              <ShoppingCart />
               <span className="absolute top-0 h-[20px] w-[20px] rounded-full bg-brand text-white">
                 1
               </span>
+            </button>
+            <button
+              className="block sm:hidden"
+              onClick={() => setSidenav(!showSidenav)}
+            >
+              <Menu />
             </button>
           </div>
         </nav>
       </div>
 
       <Sidenav isOpen={showSidenav} close={() => setSidenav(false)} />
+
+      {showSearch && (
+        <Modal bodyStyle="h-[25%]" onClose={() => setShowSearch(false)}>
+          <div className="mt-3 flex items-center justify-between rounded-[4px] bg-[#f5f5f5] px-5">
+            <input
+              type="text"
+              className="w-[90%] bg-transparent py-2 outline-none"
+              placeholder="what are you looking for"
+            />
+
+            <Search className="h-[14px] hover:cursor-pointer" />
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

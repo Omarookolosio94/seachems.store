@@ -39,11 +39,16 @@ const About = () => {
             </p>
 
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, cupiditate dicta cum nostrum aliquid nesciunt? Omnis ducimus, illo consectetur rerum veniam dolores eaque quisquam esse neque cupiditate voluptas dicta autem incidunt maxime ea voluptatibus non atque voluptate. A earum beatae nesciunt ab fugit explicabo, cupiditate inventore est atque labore voluptatem.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque,
+              cupiditate dicta cum nostrum aliquid nesciunt? Omnis ducimus, illo
+              consectetur rerum veniam dolores eaque quisquam esse neque
+              cupiditate voluptas dicta autem incidunt maxime ea voluptatibus
+              non atque voluptate. A earum beatae nesciunt ab fugit explicabo,
+              cupiditate inventore est atque labore voluptatem.
             </p>
           </div>
-          <div className="border-gray h-full w-1/2 overflow-hidden rounded-[4px] border">
-            <img src={hero1} alt="" className="h-full w-full" />
+          <div className="flex h-full w-1/2 items-center overflow-hidden rounded-[4px]">
+            <img src={hero1} alt="" className="rounded-[4px] w-full" />
           </div>
         </section>
 
