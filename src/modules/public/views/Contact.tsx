@@ -52,7 +52,7 @@ const Contact = () => {
         </section>
 
         <section className="mb-[28px] flex flex-col gap-2 lg:flex-row">
-          <div className="lg:w-1/3 w-full">
+          <div className="w-full lg:w-1/3">
             <div className="border-gray flex flex-col justify-between gap-3 rounded-[4px] border p-5 sm:flex-row lg:flex-col lg:gap-5 lg:p-3">
               <div className="mr-3 w-full border-b border-r border-r-white pb-5 sm:w-1/2 sm:border-b-white sm:border-r-black lg:w-full lg:border-b lg:border-b-black lg:border-r-white lg:pb-5">
                 <div className="mb-3 flex items-center gap-2">
@@ -91,7 +91,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="w-full p-5 lg:w-2/3">
+          <div className="mt-5 w-full p-0 lg:mt-0 lg:w-2/3 lg:p-5">
             <form onSubmit={handleSubmitFeedback}>
               <div className="mb-3 flex flex-col items-center gap-2 sm:flex-row">
                 <InputField
