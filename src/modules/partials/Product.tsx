@@ -18,26 +18,26 @@ const Product = ({
 
   return (
     <div
-      className="h-[322px] hover:cursor-pointer"
+      className="h-[260px] sm:h-[322px] hover:cursor-pointer"
       onClick={() => navigate(`/products/${product?.id}`)}
     >
       <div className="relative h-4/5 !rounded-[4px] bg-shade">
         <div className="relative flex h-[90%] flex-row items-center justify-center">
           {allowExpansion && (
             <div
-              className="absolute right-[10px] top-[10px] p-2 hover:cursor-pointer "
+              className="absolute right-[2px] top-[2px] lg:right-[5px] lg:top-[5px] p-2 hover:cursor-pointer "
               onClick={(e: any) => {
                 e?.stopPropagation();
                 handleOpen(product);
               }}
             >
-              <Maximize className="h-[24px]" />
+              <Maximize className="h-[18px] sm:h-[24px]" />
             </div>
           )}
           <img src={product3} alt={product?.name} className="h-2/3" />
         </div>
 
-        <button className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[6px] text-[12px] text-white">
+        <button className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[8px] text-[12px] text-white">
           <ShoppingCart className="h-[12px] w-[12px]" />
           <span className="inline-block">Add to Cart</span>
         </button>

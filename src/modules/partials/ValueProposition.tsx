@@ -20,12 +20,12 @@ const ValueProposition = () => {
   ];
 
   return (
-    <section className="mb-[38px] flex items-center justify-center gap-5">
+    <section className="mb-[38px] flex flex-col items-center justify-center gap-2 sm:gap-5 sm:flex-row">
       {propositions?.length > 0 &&
         propositions?.map((prop) => (
           <div
             key={prop?.name}
-            className="flex flex-col items-center justify-center gap-3  px-5 py-10"
+            className="flex w-full sm:w-auto flex-row sm:flex-col items-center justify-center gap-3 py-5 sm:px-3 sm:py-8"
           >
             <div className="rounded-full border border-[6px] border-shade">
               {prop?.icon}

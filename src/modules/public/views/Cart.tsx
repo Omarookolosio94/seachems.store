@@ -4,7 +4,7 @@ import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
 import { product2, product3 } from "core/consts/images";
 import { formatCurrency } from "core/helpers/generalHelpers";
-import { Minus, Plus, XCircle } from "react-feather";
+import { Delete, Minus, Plus, XCircle } from "react-feather";
 import { btn, invoiceGroup } from "core/consts/styling";
 import PlusMinusField from "core/components/formfields/PlusMinusField";
 import { useState } from "react";
@@ -49,34 +49,42 @@ const Cart = () => {
         </section>
 
         <section className="mb-[28px]">
-          <div className="mb-5 flex items-center rounded-[4px] border p-4 shadow-sm">
+          <div className="te mb-5 hidden items-center gap-2 rounded-[4px] border p-4 text-[12px] font-[500] shadow-sm sm:flex">
             <p className="w-1/4">Product</p>
             <p className="w-1/4">Price</p>
-            <p className="w-1/4">Quantity</p>
+            <p className="w-2/4 lg:w-1/4">Quantity</p>
             <p className="w-1/4">Subtotal</p>
           </div>
 
-          <div className="mb-5 flex items-center rounded-[4px] border p-4 shadow-sm">
+          <div className="border-1 mb-5 flex flex-col items-center gap-2 rounded-[4px] border border-black-shade p-3 sm:flex-row sm:gap-5">
             <div
-              className="flex w-1/4 items-center gap-3 hover:cursor-pointer"
+              className="flex w-full items-center gap-3 hover:cursor-pointer sm:w-1/4"
               onClick={() => navigate(`/products/sasasasasas`)}
             >
               <img src={product3} alt="" className="w-[32px]" />
               <p>Monitor</p>
             </div>
 
-            <p className="w-1/4">{formatCurrency(20000)}</p>
+            <p className="w-full sm:w-1/4">
+              <span className="mr-2 sm:hidden">Unit Price:</span>
+              <span>{formatCurrency(20000)}</span>
+            </p>
 
-            <PlusMinusField
-              qty={qty}
-              setQty={setQty}
-              boxStyle="flex w-1/4 items-center"
-            />
+            <div className="w-full sm:w-2/4 lg:w-1/4">
+              <PlusMinusField
+                qty={qty}
+                setQty={setQty}
+                boxStyle="flex items-center"
+              />
+            </div>
 
-            <div className="flex w-1/4 items-center justify-between">
-              <p className="text-[14px]">{formatCurrency(50000)}</p>
+            <div className="flex w-full items-center justify-between sm:w-1/4">
+              <p className="text-[14px]">
+                <span className="mr-2 sm:hidden">Total:</span>
+                <span>{formatCurrency(50000)}</span>
+              </p>
               <button>
-                <XCircle className="text-red-500" />
+                <Delete className="text-red-500" />
               </button>
             </div>
           </div>
@@ -96,7 +104,7 @@ const Cart = () => {
         </section>
 
         <section className="mb-[28px] flex justify-end text-[14px]">
-          <div className="w-2/5 rounded-[4px] border border-black p-4">
+          <div className="w-full rounded-[4px] border border-black p-4 md:w-2/3 lg:w-2/5">
             <p className="mb-5 font-[500]">Cart Total</p>
 
             <div className="mb-5">
@@ -119,7 +127,7 @@ const Cart = () => {
             <div className="flex items-center justify-center">
               <Link
                 to="/checkout"
-                className={`${btn} border bg-brand text-[12px] font-[500] text-white`}
+                className={`${btn} !px-[32px] border bg-brand text-[12px] font-[500] text-white`}
               >
                 Proceed To Checkout
               </Link>

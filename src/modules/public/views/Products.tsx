@@ -9,12 +9,17 @@ import Product from "modules/partials/Product";
 import Pagination from "core/components/Pagination";
 import Modal from "core/components/Modal";
 import ProductDetail from "modules/partials/ProductDetail";
+import { productBox } from "core/consts/styling";
+import SelectField from "core/components/formfields/SelectField";
 
 const Products = () => {
   const navigate = useNavigate();
 
   const productList = useProductStore((store) => store.productList);
   const getProducts = useProductStore((store) => store.getProducts);
+
+  const categories = useProductStore((store) => store.categories);
+  const getCategories = useProductStore((store) => store.getCategories);
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [openProductModal, setOpenProductModal] = useState(false);
@@ -25,6 +30,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+    categories?.length < 1 && getCategories();
     productList != null && productList?.products?.length < 1 && getProducts();
   }, []);
 
@@ -49,9 +55,28 @@ const Products = () => {
         </section>
 
         <section className="mb-[38px]">
-          <Subheader shortHeader="All Product" fullHeader=""></Subheader>
+          <Subheader shortHeader="All Product" fullHeader="">
+            <SelectField
+              boxStyle=""
+              name="category"
+              isRequired
+              selectStyle="!h-8 !text-[12px] !py-1 !px-2"
+              defaultName="Filter By Category"
+              defaultValue=""
+              options={
+                categories?.length > 0
+                  ? [
+                      ...categories?.map((cat) => ({
+                        name: cat?.name,
+                        value: cat?.id,
+                      })),
+                    ]
+                  : []
+              }
+            />
+          </Subheader>
 
-          <div className="mb-[28px] grid grid-cols-4 gap-5">
+          <div className={`${productBox}`}>
             {productList?.products?.length > 0 ? (
               productList?.products?.map((product) => (
                 <Product product={product} handleOpen={handleViewProduct} />
@@ -63,12 +88,14 @@ const Products = () => {
             )}
           </div>
 
-          <Pagination
-            pageNumber={1}
-            pageSize={10}
-            totalCount={20}
-            totalPage={2}
-          />
+          <div className="flex w-full justify-center">
+            <Pagination
+              pageNumber={1}
+              pageSize={10}
+              totalCount={20}
+              totalPage={2}
+            />
+          </div>
         </section>
       </div>
 

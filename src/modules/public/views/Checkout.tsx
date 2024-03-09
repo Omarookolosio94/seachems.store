@@ -67,7 +67,7 @@ const Checkout = () => {
               Home
             </Link>
             <span>/</span>
-            <Link to="/product" className="hover:underline">
+            <Link to="/products" className="hover:underline">
               Product
             </Link>
             <span>/</span>
@@ -81,8 +81,11 @@ const Checkout = () => {
           </header>
         </section>
 
-        <form className="mb-[28px] flex gap-10" onSubmit={handleCheckout}>
-          <div className="w-1/2">
+        <form
+          className="mb-[28px] flex flex-col gap-10 sm:flex-row"
+          onSubmit={handleCheckout}
+        >
+          <div className="w-full sm:w-1/2">
             <p className="mb-5 text-[24px] font-[500]">Billing Details</p>
 
             <div>
@@ -202,7 +205,7 @@ const Checkout = () => {
                 </>
               )}
 
-              <div className="flex h-[14px] w-[14px] w-full flex-row items-center gap-2">
+              <div className="mt-5 flex h-[14px] w-[14px] w-full flex-row items-center gap-2">
                 <input
                   type="checkbox"
                   name=""
@@ -216,7 +219,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className="w-1/2 rounded-[4px]">
+          <div className="w-full rounded-[4px] sm:w-1/2">
             <div className="mb-5">
               <div className="mb-5">
                 <div className={`${invoiceGroup} !border-none`}>
@@ -272,16 +275,16 @@ const Checkout = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 items-center justify-start">
+            <div className="flex flex-col items-center justify-start gap-3 lg:flex-row">
               <Link
                 to="/products"
-                className={`${btn} border text-[12px] font-[500]`}
+                className={`${btn} !lg:w-1/2 !w-full border text-[12px] font-[500]`}
               >
                 Return to Shop
               </Link>
 
               <button
-                className={`${btn} border bg-brand text-[12px] font-[500] text-white`}
+                className={`${btn} !lg:w-1/2 !w-full border bg-brand text-[12px] font-[500] text-white`}
               >
                 Place Order
               </button>

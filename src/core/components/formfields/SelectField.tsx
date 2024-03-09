@@ -9,7 +9,7 @@ function SelectField({
   disabled = false,
   onChange = () => {},
   onBlur = () => {},
-  label = "Select",
+  label = "",
   errors = [],
   defaultName = "",
   defaultValue = "",
@@ -38,7 +38,7 @@ function SelectField({
       )}
       <select
         value={value}
-        className={`flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] border-line bg-shade px-4 py-3 text-sm outline-none disabled:cursor-not-allowed ${selectStyle}`}
+        className={`flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] border-black-shade bg-shade px-4 py-3 text-sm outline-none disabled:cursor-not-allowed ${selectStyle}`}
         name={name}
         onChange={onChange}
         onBlur={onBlur}

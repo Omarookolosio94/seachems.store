@@ -51,50 +51,51 @@ const Contact = () => {
           </header>
         </section>
 
-        <section className="mb-[28px] flex gap-2">
-          <div className="border-gray w-1/3 rounded-[4px] border p-5">
-            <div>
-              <div className="mb-3 flex items-center gap-2">
-                <div className="rounded-full bg-brand p-2">
-                  <Phone className="h-[14px] w-[14px] text-white" />
+        <section className="mb-[28px] flex flex-col gap-2 lg:flex-row">
+          <div className="lg:w-1/3 w-full">
+            <div className="border-gray flex flex-col justify-between gap-3 rounded-[4px] border p-5 sm:flex-row lg:flex-col lg:gap-5 lg:p-3">
+              <div className="mr-3 w-full border-b border-r border-r-white pb-5 sm:w-1/2 sm:border-b-white sm:border-r-black lg:w-full lg:border-b lg:border-b-black lg:border-r-white lg:pb-5">
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="rounded-full bg-brand p-2">
+                    <Phone className="h-[14px] w-[14px] text-white" />
+                  </div>
+                  <p className="font-[500]">Call Us Today</p>
                 </div>
-                <p className="font-[500]">Call To Us</p>
+
+                <p className="mb-3">We are available 24/7, 7 days a week</p>
+
+                <a href="tel:+" className="hover:underline">
+                  Phone: +234 709 000 0000
+                </a>
               </div>
 
-              <p className="mb-3">We are available 24/7, 7 days a week</p>
-
-              <a href="tel:+" className="hover:underline">
-                Phone: +234 709 000 0000
-              </a>
-            </div>
-
-            <div className="border-b-gray my-10 border-b"></div>
-
-            <div>
-              <div className="mb-3 flex items-center gap-2">
-                <div className="rounded-full bg-brand p-2">
-                  <Mail className="h-[14px] w-[14px] text-white" />
+              <div className="w-1/2 lg:w-full">
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="rounded-full bg-brand p-2">
+                    <Mail className="h-[14px] w-[14px] text-white" />
+                  </div>
+                  <p className="font-[500]">Write To Us</p>
                 </div>
-                <p className="font-[500]">Write To Us</p>
+
+                <p className="mb-3">
+                  Fill out our form and we will contact you within 24 hours
+                </p>
+
+                <a
+                  href="mailto:oceanglobalchems@gmail.com"
+                  className="hover:underline"
+                >
+                  Email: oceanglobalchems@gmail.com
+                </a>
               </div>
-
-              <p className="mb-3">
-                Fill out our form and we will contact you within 24 hours
-              </p>
-
-              <a
-                href="mailto:oceanglobalchems@gmail.com"
-                className="hover:underline"
-              >
-                Email: oceanglobalchems@gmail.com
-              </a>
             </div>
           </div>
-          <div className="w-2/3 p-5">
+
+          <div className="w-full p-5 lg:w-2/3">
             <form onSubmit={handleSubmitFeedback}>
-              <div className="mb-3 flex items-center gap-2">
+              <div className="mb-3 flex flex-col items-center gap-2 sm:flex-row">
                 <InputField
-                  boxStyle="w-1/3"
+                  boxStyle="w-full sm:w-1/3"
                   label="Your Name"
                   isRequired
                   name="name"
@@ -103,7 +104,7 @@ const Contact = () => {
                 />
 
                 <InputField
-                  boxStyle="w-1/3"
+                  boxStyle="w-full sm:w-1/3"
                   label="Your Email"
                   name="email"
                   type="email"
@@ -112,7 +113,7 @@ const Contact = () => {
                 />
 
                 <InputField
-                  boxStyle="w-1/3"
+                  boxStyle="w-full sm:w-1/3"
                   label="Your Phone Number"
                   isRequired
                   name="phoneNumber"

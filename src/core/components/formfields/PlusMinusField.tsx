@@ -21,12 +21,20 @@ export default function PlusMinusField({
     }
   };
 
+  const handleFormChange = (e: any) => {
+    const { name, value } = e?.target;
+
+    if (+value > 0) {
+      setQty(value);
+    }
+  };
+
   return (
     <div className={`h-8 ${boxStyle}`}>
       <button
         disabled={qty == 1}
         onClick={() => handleQtyChange(false)}
-        className="h-full w-1/4 rounded-l-[4px] border p-2 outline-none disabled:cursor-not-allowed"
+        className="h-full w-1/3 rounded-l-[4px] border p-2 outline-none disabled:cursor-not-allowed"
       >
         <Minus className="h-[90%] w-[90%]" />
       </button>
@@ -34,12 +42,12 @@ export default function PlusMinusField({
         value={qty}
         type="number"
         name="quantity"
-        className="h-full w-1/4 border p-2 outline-none"
-        onChange={(e: any) => setQty(+e?.target?.value)}
+        className="h-full w-2/4 border p-2 text-center outline-none"
+        onChange={handleFormChange}
       />
       <button
         onClick={() => handleQtyChange(true)}
-        className="h-full w-1/4 rounded-r-[4px] bg-brand p-2 text-white outline-none"
+        className="h-full w-1/3 rounded-r-[4px] bg-brand p-2 text-white outline-none"
       >
         <Plus className="h-[90%] w-[90%]" />
       </button>

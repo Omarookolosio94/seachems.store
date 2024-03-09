@@ -28,8 +28,8 @@ const About = () => {
           </header>
         </section>
 
-        <section className="mb-[38px] flex h-[60vh] items-center gap-5">
-          <div className="h-full w-1/2">
+        <section className="mb-[38px] flex h-auto flex-col-reverse items-center gap-5 sm:flex-row">
+          <div className="h-full w-full sm:w-1/2">
             <h5 className="mb-5 text-[28px] font-[500]">Our Story</h5>
             <p className="mb-5">
               Seachems NG is a leading wholesale distributor of high-quality
@@ -47,8 +47,9 @@ const About = () => {
               cupiditate inventore est atque labore voluptatem.
             </p>
           </div>
-          <div className="flex h-full w-1/2 items-center overflow-hidden rounded-[4px]">
-            <img src={hero1} alt="" className="rounded-[4px] w-full" />
+
+          <div className="flex h-full w-full items-center overflow-hidden rounded-[4px] sm:w-1/2">
+            <img src={hero1} alt="" className="w-full rounded-[4px]" />
           </div>
         </section>
 

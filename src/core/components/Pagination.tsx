@@ -16,9 +16,9 @@ export default function Pagination({
   onFetch = () => {},
 }: Props) {
   return (
-    <div className="flex items-center justify-center gap-3">
+    <div className="sm:w-2/3 lg:w-1/2 w-full flex items-center justify-center gap-3">
       <button
-        className={`${btn} bg-brand text-[12px] text-white`}
+        className={`${btn} !w-1/3 bg-brand text-[12px] text-white`}
         onClick={() => onFetch(pageNumber - 1)}
         disabled={pageNumber === 1}
       >
@@ -26,14 +26,14 @@ export default function Pagination({
         <span>Prev</span>
       </button>
 
-      <div className={`${btn} bg-shade text-[12px]`}>
+      <div className={`${btn} !w-1/3 bg-shade text-[12px]`}>
         {pageNumber} / {totalPage}
       </div>
 
       <button
         disabled={pageNumber === totalPage}
         onClick={() => onFetch(pageNumber + 1)}
-        className={`${btn} bg-brand text-[12px] text-white`}
+        className={`${btn} bg-brand !w-1/3 text-[12px] text-white`}
       >
         <span>Next</span>
         <ChevronRight />

@@ -24,9 +24,9 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
   return (
     <>
       {product !== null && (
-        <section className={`flex gap-5 ${boxStyle}`}>
-          <div className="flex w-3/5 gap-3">
-            <div className="w-[120px]">
+        <section className={`flex flex-col gap-5 sm:flex-row ${boxStyle}`}>
+          <div className="flex w-full flex-col-reverse gap-3 sm:w-3/5 sm:flex-row">
+            <div className="flex w-full justify-center gap-5 sm:block sm:w-[80px]">
               <div
                 className={`${gallery}`}
                 onClick={() => setDisplayedImg(product1)}
@@ -52,12 +52,14 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
                 <img src={product1} alt="" className="h-2/3 w-2/3" />
               </div>
             </div>
-            <div className="flex h-full w-full items-center justify-center rounded-[4px] bg-[#f5f5f5]">
-              <img src={displayedImg} alt="" className="h-2/3 w-2/3" />
+            <div className="flex h-full w-full items-center justify-center rounded-[4px] bg-[#f5f5f5] py-5 sm:py-0">
+              <div className="flex h-2/3 w-2/3 items-center justify-center">
+                <img src={displayedImg} alt="" className="" />
+              </div>
             </div>
           </div>
 
-          <div className="w-2/5">
+          <div className="w-full sm:w-2/5">
             <h4 className="text-[18px] font-[500]">{product?.name}</h4>
 
             <p className="text-[12px] text-[18px] font-[500] text-red-500">
@@ -72,7 +74,7 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
               {product?.unit?.length > 0 && (
                 <div className="mb-2 flex items-center gap-3">
                   <p>Unit:</p>
-                  <span className="rounded-[4px] border border-black-shade px-1 font-[500]">
+                  <span className="rounded-[4px] border border-black-shade bg-shade px-1 font-[500]">
                     {product?.unit}
                   </span>
                 </div>
@@ -80,24 +82,26 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
 
               <div className="flex items-center gap-3">
                 <p>Item Per Pack:</p>
-                <span className="rounded-[4px] border border-brand px-1 font-[500] text-brand">
+                <span className="rounded-[4px] border border-brand bg-shade px-1 font-[500] text-brand">
                   {Number(product?.itemPerPack)?.toLocaleString("en-US")}
                 </span>
               </div>
             </div>
 
-            <PlusMinusField
-              qty={qty}
-              setQty={setQty}
-              boxStyle="flex !w-1/2 !h-8 items-center"
-            />
+            <div className="mt-5 flex flex-col items-center gap-3 lg:flex-row">
+              <PlusMinusField
+                qty={qty}
+                setQty={setQty}
+                boxStyle="flex !w-full lg:!w-1/2 !h-8 items-center"
+              />
 
-            <button
-              className={`${btn} my-5 !w-1/2 border bg-brand text-[12px] font-[500] text-white`}
-            >
-              <ShoppingBag className="h-[14px]" />
-              <span>Add to Cart</span>
-            </button>
+              <button
+                className={`${btn} !h-8 !w-full bg-brand text-[12px] font-[500] text-white lg:!w-1/2`}
+              >
+                <ShoppingBag className="h-[14px]" />
+                <span>Add to Cart</span>
+              </button>
+            </div>
           </div>
         </section>
       )}
