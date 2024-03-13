@@ -45,4 +45,23 @@ declare global {
     product: Product | null;
     quantity: number;
   }
+
+  interface OrderCart {
+    productId: string;
+    quantity: number;
+  }
+
+  interface NewOrder {
+    paymentMethod: string;
+    deliveryMode: string;
+    cart: OrderCart[];
+    firstName: string;
+    lastName: string;
+    businessName: string;
+    state: string;
+    lga: string;
+    deliveryAddress: string;
+    customerEmail: string;
+    customerPhone: string;
+  }
 }

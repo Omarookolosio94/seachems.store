@@ -5,12 +5,14 @@ import { logoImg } from "core/consts/images";
 import { Menu, Search, ShoppingCart } from "react-feather";
 import Modal from "./Modal";
 import SearchBox from "./SearchBox";
+import useProductStore from "core/services/stores/useProductStore";
 
 const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
   const navigate = useNavigate();
   const [showSidenav, setSidenav] = useState(false);
 
   const [showSearch, setShowSearch] = useState(false);
+  const cart = useProductStore((store) => store.cart);
 
   const logout = () => {
     sessionStorage.clear();
@@ -84,12 +86,14 @@ const Navbar = ({ showLinks = true }: { showLinks?: boolean }) => {
             </button>
             <button className="relative" onClick={() => navigate("/cart")}>
               <ShoppingCart />
-              <span className="absolute top-0 h-[20px] w-[20px] rounded-full bg-brand text-white">
-                1
-              </span>
+              {cart?.length > 0 && (
+                <span className="absolute top-0 h-[20px] w-[20px] rounded-full bg-brand text-white">
+                  {cart?.length}
+                </span>
+              )}
             </button>
             <button
-              className="block ml-2 sm:hidden"
+              className="ml-2 block sm:hidden"
               onClick={() => setSidenav(!showSidenav)}
             >
               <Menu />

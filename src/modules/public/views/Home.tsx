@@ -31,7 +31,7 @@ const Home = () => {
 
   useEffect(() => {
     categories?.length < 1 && getCategories();
-    productList != null && productList?.products?.length < 1 && getProducts();
+    getProducts("", 1, 8);
   }, []);
 
   return (

@@ -43,9 +43,10 @@ export default function SearchBox({
     <form className={`${formStyle}`} onSubmit={search}>
       <input
         type="text"
-        className={`w-[90%] bg-transparent py-2 outline-none ${inputStyle}`}
+        className={`w-[90%] bg-transparent py-2 outline-none disabled:cursor-not-allowed ${inputStyle}`}
         placeholder="what are you looking for"
         value={searchTerm}
+        disabled
         onChange={(e: any) => setSearchTerm(e?.target?.value)}
       />
 

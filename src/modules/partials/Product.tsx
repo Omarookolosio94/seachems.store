@@ -1,6 +1,7 @@
 import { product3 } from "core/consts/images";
 import { formatCurrency } from "core/helpers/generalHelpers";
-import { Maximize, ShoppingCart } from "react-feather";
+import useProductStore from "core/services/stores/useProductStore";
+import { Delete, Maximize, ShoppingCart } from "react-feather";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -15,6 +16,10 @@ const Product = ({
   allowExpansion = true,
 }: Props) => {
   const navigate = useNavigate();
+
+  const cart = useProductStore((store) => store.cart);
+  const addToCart = useProductStore((store) => store.addToCart);
+  const removeFromCart = useProductStore((store) => store.removeFromCart);
 
   return (
     <div
@@ -37,16 +42,29 @@ const Product = ({
           <img src={product3} alt={product?.name} className="h-2/3" />
         </div>
 
-        <button
-          onClick={(e: any) => {
-            e?.stopPropagation();
-            alert("item added to cart");
-          }}
-          className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[10px] text-[12px] text-white"
-        >
-          <ShoppingCart className="h-[12px] w-[12px]" />
-          <span className="inline-block">Add to Cart</span>
-        </button>
+        {cart.some((item) => item.productId == product?.id) ? (
+          <button
+            onClick={(e: any) => {
+              e?.stopPropagation();
+              removeFromCart(product?.id!);
+            }}
+            className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-red-700 py-[10px] text-[12px] text-white"
+          >
+            <Delete className="h-[12px] w-[12px]" />
+            <span className="inline-block">Remove From Cart</span>
+          </button>
+        ) : (
+          <button
+            onClick={(e: any) => {
+              e?.stopPropagation();
+              addToCart(product!, 1);
+            }}
+            className="absolute bottom-0 flex w-full items-center justify-center gap-2 rounded-b-[5px] bg-black py-[10px] text-[12px] text-white"
+          >
+            <ShoppingCart className="h-[12px] w-[12px]" />
+            <span className="inline-block">Add To Cart</span>
+          </button>
+        )}
       </div>
 
       <div className="mt-2">
