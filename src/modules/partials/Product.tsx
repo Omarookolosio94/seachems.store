@@ -68,7 +68,7 @@ const Product = ({
       </div>
 
       <div className="mt-2">
-        <p className="font-[500]">{product?.name}</p>
+        <p className="font-[500] capitalize">{product?.name}</p>
         <p className="text-[12px] font-[500] text-red-500">
           {formatCurrency(product?.sellingPrice)}
         </p>

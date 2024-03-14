@@ -8,26 +8,25 @@ import { Delete, Minus, Plus, XCircle } from "react-feather";
 import { btn, invoiceGroup } from "core/consts/styling";
 import PlusMinusField from "core/components/formfields/PlusMinusField";
 import { useState } from "react";
+import useProductStore from "core/services/stores/useProductStore";
+import notification from "core/helpers/notification";
 
 const Cart = () => {
   const navigate = useNavigate();
 
-  // TODO: Make cart items a component
-  const [qty, setQty] = useState(1);
+  const cart = useProductStore((store) => store.cart);
+  const addToCart = useProductStore((store) => store.addToCart);
+  const clearCart = useProductStore((store) => store.clearCart);
+  const removeFromCart = useProductStore((store) => store.removeFromCart);
 
-  /*
-  const onSubCategoryChange = (e: any, index: number) => {
-    const { name, value }: any = e?.target;
+  const handleAddToCart = async (product: Product, quantity: number) => {
+    await addToCart(product!, quantity);
+  };
 
-    const data: any = [...subCategories];
-    data[index][name] = value;
+  const totalPrice = cart.reduce((total, item) => {
+    return total + item?.product!?.sellingPrice * item.quantity;
+  }, 0);
 
-    setSubCategories(data);
-
-    setNewProduct((state: any) => ({ ...state, hotelCategories: data }));
-  };*/
-
-  // TODO: Add empty state for cart
   return (
     <>
       {addMetaData({
@@ -49,45 +48,61 @@ const Cart = () => {
         </section>
 
         <section className="mb-[28px]">
-          <div className="te mb-5 hidden items-center gap-2 rounded-[4px] border p-4 text-[12px] font-[500] shadow-sm sm:flex">
+          <div className="mb-5 hidden items-center gap-2 rounded-[4px] border p-4 text-[12px] font-[500] shadow-sm sm:flex">
             <p className="w-1/4">Product</p>
             <p className="w-1/4">Price</p>
             <p className="w-2/4 lg:w-1/4">Quantity</p>
             <p className="w-1/4">Subtotal</p>
           </div>
 
-          <div className="border-1 mb-5 flex flex-col items-center gap-2 rounded-[4px] border border-black-shade p-3 sm:flex-row sm:gap-5">
-            <div
-              className="flex w-full items-center gap-3 hover:cursor-pointer sm:w-1/4"
-              onClick={() => navigate(`/products/sasasasasas`)}
-            >
-              <img src={product3} alt="" className="w-[32px]" />
-              <p>Monitor</p>
-            </div>
+          {cart?.length > 0 ? (
+            cart?.map((item) => (
+              <div
+                key={item?.productId}
+                className="border-1 mb-5 flex flex-col items-center gap-2 rounded-[4px] border border-black-shade p-3 sm:flex-row sm:gap-5"
+              >
+                <div
+                  className="hover:text-underline flex w-full items-center gap-3 hover:cursor-pointer sm:w-1/4"
+                  onClick={() => navigate(`/products/sasasasasas`)}
+                >
+                  <img src={product3} alt="" className="w-[32px]" />
+                  <p>{item?.product?.name}</p>
+                </div>
 
-            <p className="w-full sm:w-1/4">
-              <span className="mr-2 sm:hidden">Unit Price:</span>
-              <span>{formatCurrency(20000)}</span>
-            </p>
+                <p className="w-full sm:w-1/4">
+                  <span className="mr-2 sm:hidden">Unit Price:</span>
+                  <span>{formatCurrency(item?.product?.sellingPrice)}</span>
+                </p>
 
-            <div className="w-full sm:w-2/4 lg:w-1/4">
-              <PlusMinusField
-                qty={qty}
-                setQty={setQty}
-                boxStyle="flex !h-10 items-center"
-              />
-            </div>
+                <div className="w-full sm:w-2/4 lg:w-1/4">
+                  <PlusMinusField
+                    qty={item?.quantity}
+                    setQty={handleAddToCart}
+                    boxStyle="flex !h-10 items-center"
+                    product={item?.product}
+                  />
+                </div>
 
-            <div className="flex w-full items-center justify-between sm:w-1/4">
-              <p className="text-[14px]">
-                <span className="mr-2 sm:hidden">Total:</span>
-                <span>{formatCurrency(50000)}</span>
-              </p>
-              <button>
-                <Delete className="text-red-500" />
-              </button>
+                <div className="flex w-full items-center justify-between sm:w-1/4">
+                  <p className="text-[14px]">
+                    <span className="mr-2 sm:hidden">Total:</span>
+                    <span>
+                      {formatCurrency(
+                        item?.product!?.sellingPrice * item?.quantity,
+                      )}
+                    </span>
+                  </p>
+                  <button onClick={() => removeFromCart(item?.productId!)}>
+                    <Delete className="text-red-500" />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="mb-5 hidden items-center gap-2 rounded-[4px] border p-4 text-[12px] font-[500] shadow-sm sm:flex">
+              <p className="w-full">No item in cart</p>
             </div>
-          </div>
+          )}
 
           <div className="flex items-center justify-between">
             <Link
@@ -97,7 +112,20 @@ const Cart = () => {
               Return to Shop
             </Link>
 
-            <button className={`${btn} border text-[12px] font-[500]`}>
+            <button
+              disabled={cart?.length < 1}
+              onClick={() => {
+                if (cart.length < 1) return;
+                if (
+                  window.confirm(
+                    "You are about to clear your cart. Do you still want to proceed?",
+                  )
+                ) {
+                  clearCart();
+                }
+              }}
+              className={`${btn} border text-[12px] font-[500]`}
+            >
               Clear Cart
             </button>
           </div>
@@ -110,7 +138,7 @@ const Cart = () => {
             <div className="mb-5">
               <div className={`${invoiceGroup}`}>
                 <p>Subtotal:</p>
-                <p>{formatCurrency(60000)}</p>
+                <p>{formatCurrency(totalPrice)}</p>
               </div>
 
               <div className={`${invoiceGroup}`}>
@@ -120,14 +148,23 @@ const Cart = () => {
 
               <div className={`${invoiceGroup}`}>
                 <p>Total:</p>
-                <p>{formatCurrency(60000)}</p>
+                <p>{formatCurrency(totalPrice)}</p>
               </div>
             </div>
 
             <div className="flex items-center justify-center">
               <Link
                 to="/checkout"
-                className={`${btn} w-full !px-[32px] border bg-brand text-[12px] font-[500] text-white`}
+                onClick={(e) => {
+                  if (cart.length < 1) {
+                    e.preventDefault();
+                    notification({
+                      type: "warning",
+                      message: "Please add item to cart before checkout",
+                    });
+                  }
+                }}
+                className={`${btn} w-full border bg-brand !px-[32px] text-[12px] font-[500] text-white`}
               >
                 Proceed To Checkout
               </Link>

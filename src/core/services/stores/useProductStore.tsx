@@ -1,7 +1,12 @@
-import { MOCK_PRODUCTS } from "core/consts/mocks";
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { getCategories, getProducts } from "../api/product.api";
+import {
+  addOrder,
+  getCategories,
+  getProductById,
+  getProducts,
+} from "../api/product.api";
+import notification from "core/helpers/notification";
 
 type State = {
   isLoading: boolean;
@@ -23,6 +28,8 @@ type State = {
   getProductById: (id: string) => Promise<void>;
   addToCart: (product: Product, quantity: number) => Promise<void>;
   removeFromCart: (id: string) => Promise<void>;
+  placeOrder: (order: NewOrder) => Promise<any>;
+  clearCart: () => Promise<void>;
   reset: () => void;
 };
 
@@ -72,26 +79,57 @@ const useProductStore = create<State>()(
         getProductById: async (id) => {
           set({ isLoading: true });
 
-          set({ product: MOCK_PRODUCTS[0] });
+          var res = await getProductById(id);
+
+          set({ product: res?.data?.data });
 
           set({ isLoading: false });
         },
         addToCart: async (product, quantity) => {
           set((state) => ({
-            cart: [
-              ...state.cart,
-              {
-                product,
-                productId: product?.id,
-                quantity: +quantity,
-              },
-            ],
+            cart: state.cart.some((x) => x.productId == product?.id)
+              ? state.cart?.map((item) =>
+                  item.productId === product?.id
+                    ? {
+                        product,
+                        productId: product?.id,
+                        quantity: +quantity,
+                      }
+                    : item,
+                )
+              : [
+                  ...state.cart,
+                  {
+                    product,
+                    productId: product?.id,
+                    quantity: +quantity,
+                  },
+                ],
           }));
+        },
+        placeOrder: async (order) => {
+          set({ isLoading: true });
+
+          var res = await addOrder(order);
+
+          if (res?.data?.success) set({ cart: [] });
+
+          notification({
+            type: res?.data?.success ? "success" : "danger",
+            message: res?.data?.message,
+          });
+
+          set({ isLoading: false });
+
+          return res?.data;
         },
         removeFromCart: async (id) => {
           set((state) => ({
             cart: state.cart.filter((item) => item.productId !== id),
           }));
+        },
+        clearCart: async () => {
+          set({ cart: [] });
         },
         reset: () => {
           set({ ...initialState });

@@ -64,4 +64,11 @@ declare global {
     customerEmail: string;
     customerPhone: string;
   }
+
+  interface ProductGallery {
+    id: string;
+    name: string;
+    url: string;
+    isDefault: string;
+  }
 }

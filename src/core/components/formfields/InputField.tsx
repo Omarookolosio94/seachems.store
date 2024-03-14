@@ -49,7 +49,7 @@ function InputField({
   return (
     <div className={`${boxStyle}`}>
       {label && label?.length > 0 && (
-        <label htmlFor={uniqueId} className={`text-gray mb-1 text-[12px]`}>
+        <label htmlFor={uniqueId} className={`mb-1 text-[12px] text-gray`}>
           {label} {isRequired && <span className="text-red-500">*</span>}
         </label>
       )}
@@ -72,7 +72,7 @@ function InputField({
         value={value}
         list={dataListId}
         aria-autocomplete="none"
-        className={`text-gray flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] bg-shade px-4 py-3 text-sm text-black outline-none ${
+        className={`flex h-12 w-full items-center justify-center rounded-[4px] border border-[.5px] bg-shade px-4 py-3 text-sm text-black outline-none ${
           disabled === true
             ? "!cursor-not-allowed"
             : state === "error"
@@ -93,14 +93,14 @@ function InputField({
         </datalist>
       )}
 
-      <span className="text-gray text-xs">{instruction}</span>
+      <span className="text-xs text-gray">{instruction}</span>
       {errors?.length > 0 &&
         errors?.slice(0, 1)?.map((error: any, index: number) => (
           <span
             key={index}
-            className="duration-2000 mt-1 block  text-[12px] text-red-500 transition-all ease-in-out"
+            className="duration-2000 mt-1 block text-[12px] text-red-500 transition-all ease-in-out"
           >
-            {error?.errorMessage}
+            {error}
           </span>
         ))}
     </div>

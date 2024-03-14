@@ -4,20 +4,22 @@ interface Props {
   qty: number;
   setQty?: any;
   boxStyle?: string;
+  product?: any;
 }
 
 export default function PlusMinusField({
   qty = 1,
   setQty = () => {},
   boxStyle = "",
+  product = null,
 }: Props) {
   const handleQtyChange = (isIncrement: boolean = true) => {
     if (!isIncrement && qty == 1) {
-      setQty(+qty);
+      product != null ? setQty(product, +qty) : setQty(+qty);
     } else if (!isIncrement && qty > 1) {
-      setQty(+qty - 1);
+      product != null ? setQty(product, +qty - 1) : setQty(+qty - 1);
     } else if (isIncrement) {
-      setQty(+qty + 1);
+      product != null ? setQty(product, +qty + 1) : setQty(+qty + 1);
     }
   };
 

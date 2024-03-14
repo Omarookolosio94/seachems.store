@@ -35,7 +35,7 @@ const Products = () => {
     currentPage: 1,
     totalItem: 0,
     totalPage: 1,
-    pageSize: 6,
+    pageSize: 12,
   });
 
   const fetchMore = async (page: number) => {
@@ -134,7 +134,11 @@ const Products = () => {
           <div className={`${productBox}`}>
             {productList?.products?.length > 0 ? (
               productList?.products?.map((product) => (
-                <Product product={product} handleOpen={handleViewProduct} />
+                <Product
+                  key={product?.id}
+                  product={product}
+                  handleOpen={handleViewProduct}
+                />
               ))
             ) : (
               <>
@@ -157,13 +161,20 @@ const Products = () => {
 
       {openProductModal && (
         <Modal
-          bodyStyle="w-11/12 md:w-11/12 lg:w-11/12"
+          bodyStyle="!w-full !h-[100%] lg:!w-11/12"
           onClose={() => {
             setSelectedProduct(null);
             setOpenProductModal(false);
           }}
         >
-          <ProductDetail product={selectedProduct} />
+          <ProductDetail
+            product={selectedProduct}
+            onClose={() => {
+              setSelectedProduct(null);
+              setOpenProductModal(false);
+            }}
+            showClose={true}
+          />
         </Modal>
       )}
     </>

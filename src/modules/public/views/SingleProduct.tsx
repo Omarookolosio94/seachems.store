@@ -29,7 +29,7 @@ const SingleProduct = () => {
       }
     }
 
-    getProducts();
+    getProducts("", 1, 4);
   }, [productId]);
 
   return (
@@ -47,18 +47,22 @@ const SingleProduct = () => {
             </Link>
             <span>/</span>
             <Link to="/products" className="hover:underline">
-              Product
+              Products
             </Link>
             <span>/</span>
             {product != null && (
               <>
-                <Link
-                  to={`/products?category=${product?.category?.name}`}
-                  className="capitalize hover:underline"
-                >
-                  {product?.category?.name}
-                </Link>
-                <span>/</span>
+                {product?.category != null && (
+                  <>
+                    <Link
+                      to={`/products?category=${product?.category?.name}`}
+                      className="capitalize hover:underline"
+                    >
+                      {product?.category?.name}
+                    </Link>
+                    <span>/</span>
+                  </>
+                )}
                 <Link
                   to={`/products/${product?.id}`}
                   className="capitalize text-black hover:underline"
@@ -82,7 +86,11 @@ const SingleProduct = () => {
               productList?.products
                 ?.slice(0, 4)
                 ?.map((product) => (
-                  <Product product={product} allowExpansion={false} />
+                  <Product
+                    key={product?.id}
+                    product={product}
+                    allowExpansion={false}
+                  />
                 ))
             ) : (
               <>

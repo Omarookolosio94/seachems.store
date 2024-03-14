@@ -3,28 +3,60 @@ import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
 import InputField from "core/components/formfields/InputField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectField from "core/components/formfields/SelectField";
 import { STATES_AND_LGAS } from "core/consts/statesandlgas";
 import { DELIVERY_MODE } from "core/consts/systemconst";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import { btn, invoiceGroup } from "core/consts/styling";
 import { product1, product2, product3 } from "core/consts/images";
+import useProductStore from "core/services/stores/useProductStore";
 
 const Checkout = () => {
   const navigate = useNavigate();
 
-  const [deliveryData, setDeliveryData] = useState({
+  const cart = useProductStore((store) => store.cart);
+  const placeOrder = useProductStore((store) => store.placeOrder);
+  const clearCart = useProductStore((store) => store.clearCart);
+
+  const totalPrice = cart.reduce((total, item) => {
+    return total + item?.product!?.sellingPrice * item.quantity;
+  }, 0);
+
+  const [deliveryData, setDeliveryData] = useState<NewOrder>({
     firstName: "",
     lastName: "",
-    companyName: "",
-    email: "",
     state: "Lagos",
     lga: "",
-    address: "",
-    phoneNumber: "",
     deliveryMode: "",
+    businessName: "",
+    cart: [],
+    customerEmail: "",
+    customerPhone: "",
+    deliveryAddress: "",
+    paymentMethod: "",
   });
+
+  const [errors, setErrors] = useState({
+    FirstName: [],
+    LastName: [],
+    State: [],
+    LGA: [],
+    DeliveryMode: [],
+    BusinessName: [],
+    Cart: [],
+    CustomerEmail: [],
+    CustomerPhone: [],
+    DeliveryAddress: [],
+    PaymentMethod: [],
+  });
+
+  const handleErrorChange = (name: string, value: string[]) => {
+    setErrors((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  };
 
   const setLga = (state: string) => {
     var filteredArea = STATES_AND_LGAS?.filter((nga) => nga?.state === state);
@@ -38,6 +70,8 @@ const Checkout = () => {
 
   const lgas = setLga(deliveryData?.state);
 
+  // TODO: Add Validations
+
   const handleFormChange = (e: any) => {
     const { name, value } = e?.target;
 
@@ -47,11 +81,36 @@ const Checkout = () => {
     }));
   };
 
-  const handleCheckout = (e: any) => {
+  const handleCheckout = async (e: any) => {
     e.preventDefault();
 
-    console.log(deliveryData);
+    if (
+      window.confirm(
+        "You are about to place an order. Do you still want to proceed?",
+      )
+    ) {
+      var res = await placeOrder({
+        ...deliveryData,
+        cart: cart.map((item) => ({
+          productId: item?.productId,
+          quantity: item?.quantity,
+        })),
+      });
+
+      if (res?.success) {
+        navigate("/products");
+      } else {
+        setErrors((state) => ({
+          ...state,
+          ...res?.data,
+        }));
+      }
+    }
   };
+
+  useEffect(() => {
+    cart?.length < 1 && navigate("/products");
+  }, []);
 
   return (
     <>
@@ -96,6 +155,8 @@ const Checkout = () => {
                 name="firstName"
                 value={deliveryData?.firstName}
                 onChange={handleFormChange}
+                errors={errors?.FirstName}
+                onBlur={() => handleErrorChange("FirstName", [])}
               />
 
               <InputField
@@ -105,33 +166,40 @@ const Checkout = () => {
                 name="lastName"
                 value={deliveryData?.lastName}
                 onChange={handleFormChange}
+                errors={errors?.LastName}
+                onBlur={() => handleErrorChange("LastName", [])}
               />
 
               <InputField
                 boxStyle="mb-3"
                 label="Company/Business Name"
-                name="companyName"
-                value={deliveryData?.companyName}
+                name="businessName"
+                value={deliveryData?.businessName}
                 onChange={handleFormChange}
                 instruction={`* if purchase is made on behalf of a business or company`}
+                errors={errors?.BusinessName}
+                onBlur={() => handleErrorChange("BusinessName", [])}
               />
 
               <InputField
                 boxStyle="mb-3"
                 label="Email"
-                name="email"
-                type="email"
-                value={deliveryData?.email}
+                name="customerEmail"
+                value={deliveryData?.customerEmail}
                 onChange={handleFormChange}
+                errors={errors?.CustomerEmail}
+                onBlur={() => handleErrorChange("CustomerEmail", [])}
               />
 
               <InputField
                 boxStyle="mb-3"
-                label="Contact Number"
-                name="phoneNumber"
+                label="Contact Phone Number"
+                name="customerPhone"
                 isNumberOnly
-                value={deliveryData?.phoneNumber}
+                value={deliveryData?.customerPhone}
                 onChange={handleFormChange}
+                errors={errors?.CustomerPhone}
+                onBlur={() => handleErrorChange("CustomerPhone", [])}
               />
 
               <SelectField
@@ -152,6 +220,8 @@ const Checkout = () => {
                 }
                 value={deliveryData?.deliveryMode}
                 onChange={handleFormChange}
+                errors={errors?.DeliveryMode}
+                onBlur={() => handleErrorChange("DeliveryMode", [])}
               />
 
               {deliveryData?.deliveryMode === "DELIVERY" && (
@@ -171,6 +241,8 @@ const Checkout = () => {
                     ]}
                     value={deliveryData?.state}
                     onChange={handleFormChange}
+                    errors={errors?.State}
+                    onBlur={() => handleErrorChange("State", [])}
                   />
 
                   <SelectField
@@ -192,19 +264,24 @@ const Checkout = () => {
                     }
                     value={deliveryData?.lga}
                     onChange={handleFormChange}
+                    errors={errors?.LGA}
+                    onBlur={() => handleErrorChange("LGA", [])}
                   />
 
                   <InputField
                     boxStyle="mb-3"
                     label="Delivery Address"
                     isRequired
-                    name="address"
-                    value={deliveryData?.address}
+                    name="deliveryAddress"
+                    value={deliveryData?.deliveryAddress}
                     onChange={handleFormChange}
+                    errors={errors?.DeliveryAddress}
+                    onBlur={() => handleErrorChange("DeliveryAddress", [])}
                   />
                 </>
               )}
 
+              {/* 
               <div className="mt-5 flex h-[14px] w-[14px] w-full flex-row items-center gap-2">
                 <input
                   type="checkbox"
@@ -216,40 +293,37 @@ const Checkout = () => {
                   save this information for faster check-out next time
                 </span>
               </div>
+              */}
             </div>
           </div>
 
           <div className="w-full rounded-[4px] sm:w-1/2">
             <div className="mb-5">
               <div className="mb-5">
-                <div className={`${invoiceGroup} !border-none`}>
-                  <div className="flex w-2/3 items-center gap-3">
-                    <img src={product3} alt="" className="w-[32px]" />
-                    <p>Monitor (x1)</p>
-                  </div>
-                  <p>{formatCurrency(700)}</p>
-                </div>
-
-                <div className={`${invoiceGroup} !border-none`}>
-                  <div className="flex w-2/3 items-center gap-3">
-                    <img src={product1} alt="" className="w-[32px]" />
-                    <p>45L of Ozyuin (X2) </p>
-                  </div>
-                  <p>{formatCurrency(67000)}</p>
-                </div>
-
-                <div className={`${invoiceGroup} !border-none`}>
-                  <div className="flex w-2/3 items-center gap-3">
-                    <img src={product2} alt="" className="w-[32px]" />
-                    <p>80 L of Nixort (x3)</p>
-                  </div>
-                  <p>{formatCurrency(77000)}</p>
-                </div>
+                {cart?.length > 0 &&
+                  cart?.map((item) => (
+                    <div
+                      key={item?.productId}
+                      className={`${invoiceGroup} !border-none`}
+                    >
+                      <div className="flex w-2/3 items-center gap-3">
+                        <img src={product3} alt="" className="w-[32px]" />
+                        <p>
+                          {item?.product?.name} (x{item?.quantity})
+                        </p>
+                      </div>
+                      <p>
+                        {formatCurrency(
+                          item?.quantity * item?.product!?.sellingPrice,
+                        )}
+                      </p>
+                    </div>
+                  ))}
               </div>
 
               <div className={`${invoiceGroup}`}>
                 <p>Subtotal:</p>
-                <p>{formatCurrency(60000)}</p>
+                <p>{formatCurrency(totalPrice)}</p>
               </div>
 
               <div className={`${invoiceGroup}`}>
@@ -266,12 +340,12 @@ const Checkout = () => {
                   Total:{" "}
                   {deliveryData?.deliveryMode === "DELIVERY" && (
                     <span className="text-[10px] text-red-500">
-                      (** exclusive of delivery fee)
+                      (** exclusive of delivery fee and additional charges)
                     </span>
                   )}
                 </p>
 
-                <p>{formatCurrency(60000)}</p>
+                <p>{formatCurrency(totalPrice)}</p>
               </div>
             </div>
 

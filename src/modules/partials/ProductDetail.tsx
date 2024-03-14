@@ -2,20 +2,38 @@ import PlusMinusField from "core/components/formfields/PlusMinusField";
 import { product1, product2, product3 } from "core/consts/images";
 import { btn, gallery } from "core/consts/styling";
 import { formatCurrency } from "core/helpers/generalHelpers";
+import useProductStore from "core/services/stores/useProductStore";
 import { useEffect, useState } from "react";
-import { ShoppingBag } from "react-feather";
+import { Delete, ShoppingBag } from "react-feather";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
   product: Product | null;
   boxStyle?: string;
+  showClose?: boolean;
+  onClose?: any;
 }
 
-const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
+const ProductDetail = ({
+  product = null,
+  boxStyle = "",
+  showClose = false,
+  onClose = () => {},
+}: Props) => {
   const navigate = useNavigate();
+
+  const cart = useProductStore((store) => store.cart);
+  const addToCart = useProductStore((store) => store.addToCart);
+  const removeFromCart = useProductStore((store) => store.removeFromCart);
 
   const [qty, setQty] = useState(1);
   const [displayedImg, setDisplayedImg] = useState<any>("");
+
+  const handleAddToCart = async (quantity: number) => {
+    setQty(quantity);
+
+    await addToCart(product!, quantity);
+  };
 
   useEffect(() => {
     setDisplayedImg(product1);
@@ -60,7 +78,9 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
           </div>
 
           <div className="w-full sm:w-2/5">
-            <h4 className="text-[18px] font-[500]">{product?.name}</h4>
+            <h4 className="text-[18px] font-[500] capitalize">
+              {product?.name}
+            </h4>
 
             <p className="text-[12px] text-[18px] font-[500] text-red-500">
               {formatCurrency(product?.sellingPrice)}
@@ -91,16 +111,36 @@ const ProductDetail = ({ product = null, boxStyle = "" }: Props) => {
             <div className="mt-5 flex flex-col items-center gap-3 lg:flex-row">
               <PlusMinusField
                 qty={qty}
-                setQty={setQty}
+                setQty={handleAddToCart}
                 boxStyle="flex !w-full lg:!w-1/2 !h-10 items-center"
               />
 
-              <button
-                className={`${btn} !h-10 !w-full bg-brand text-[12px] font-[500] text-white lg:!w-1/2`}
-              >
-                <ShoppingBag className="h-[14px]" />
-                <span>Add to Cart</span>
-              </button>
+              {cart.some((item) => item.productId == product?.id) ? (
+                <button
+                  onClick={() => removeFromCart(product?.id!)}
+                  className={`${btn} !h-10 !w-full bg-red-700 text-[12px] font-[500] text-white lg:!w-1/2`}
+                >
+                  <Delete className="h-[14px]" />
+                  <span className="text-[10px]">Remove From Cart</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => addToCart(product!, qty)}
+                  className={`${btn} !h-10 !w-full bg-brand text-[12px] font-[500] text-white lg:!w-1/2`}
+                >
+                  <ShoppingBag className="h-[14px]" />
+                  <span className="text-[10px]">Add to Cart</span>
+                </button>
+              )}
+
+              {showClose && (
+                <button
+                  onClick={() => onClose()}
+                  className={`${btn} !h-10 !w-full bg-gray text-[12px] font-[500] text-white lg:hidden lg:!w-1/2`}
+                >
+                  <span className="text-[10px]">Close</span>
+                </button>
+              )}
             </div>
           </div>
         </section>
