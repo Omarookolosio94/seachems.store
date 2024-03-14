@@ -11,6 +11,7 @@ import { formatCurrency } from "core/helpers/generalHelpers";
 import { btn, invoiceGroup } from "core/consts/styling";
 import { product1, product2, product3 } from "core/consts/images";
 import useProductStore from "core/services/stores/useProductStore";
+import notification from "core/helpers/notification";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -71,6 +72,58 @@ const Checkout = () => {
   const lgas = setLga(deliveryData?.state);
 
   // TODO: Add Validations
+  const validation = (data: NewOrder) => {
+    var isValid = true;
+
+    if (data?.firstName?.length < 1) {
+      isValid = false;
+      handleErrorChange("FirstName", ["First Name is required"]);
+    }
+
+    if (data?.lastName?.length < 1) {
+      isValid = false;
+      handleErrorChange("LastName", ["Last Name is required"]);
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data?.customerEmail)) {
+      handleErrorChange("CustomerEmail", ["A valid Email address is required"]);
+      isValid = false;
+    }
+
+    if (
+      data?.customerPhone?.length !== 11 &&
+      data?.customerPhone?.length !== 13
+    ) {
+      handleErrorChange("CustomerPhone", [
+        "Phone number must be 11 digits or 13 digits",
+      ]);
+      isValid = false;
+    }
+
+    if (data?.deliveryMode?.length < 1) {
+      handleErrorChange("DeliveryMode", ["Please select a delivery mode"]);
+      isValid = false;
+    }
+
+    if (data?.deliveryMode === "DELIVERY") {
+      if (data?.state?.length < 1) {
+        handleErrorChange("State", ["Please select a State"]);
+        isValid = false;
+      }
+
+      if (data?.lga?.length < 1) {
+        handleErrorChange("LGA", ["Please select a Local Government Area"]);
+        isValid = false;
+      }
+
+      if (data?.deliveryAddress?.length < 1) {
+        handleErrorChange("DeliveryAddress", ["Please input delivery address"]);
+        isValid = false;
+      }
+    }
+
+    return isValid;
+  };
 
   const handleFormChange = (e: any) => {
     const { name, value } = e?.target;
@@ -83,6 +136,15 @@ const Checkout = () => {
 
   const handleCheckout = async (e: any) => {
     e.preventDefault();
+
+    if (!validation(deliveryData)) {
+      notification({
+        type: "danger",
+        message: "Please pass in all required information",
+      });
+
+      return;
+    }
 
     if (
       window.confirm(
@@ -112,11 +174,13 @@ const Checkout = () => {
     cart?.length < 1 && navigate("/products");
   }, []);
 
+  // TODO: Save customer details for automatic refill
+
   return (
     <>
       {addMetaData({
-        title: "",
-        description: " ",
+        title: "Ocean Global Chemicals Nigeria - Checkout",
+        description: "Easy checkout in less than 2 minutes",
       })}
 
       <div className="m-[0px] mx-auto mb-[34px] h-full w-11/12 overflow-hidden pt-[20px] md:w-4/5">
@@ -184,6 +248,7 @@ const Checkout = () => {
               <InputField
                 boxStyle="mb-3"
                 label="Email"
+                isRequired
                 name="customerEmail"
                 value={deliveryData?.customerEmail}
                 onChange={handleFormChange}
@@ -196,6 +261,7 @@ const Checkout = () => {
                 label="Contact Phone Number"
                 name="customerPhone"
                 isNumberOnly
+                isRequired
                 value={deliveryData?.customerPhone}
                 onChange={handleFormChange}
                 errors={errors?.CustomerPhone}
@@ -205,6 +271,7 @@ const Checkout = () => {
               <SelectField
                 boxStyle="mb-3"
                 name="deliveryMode"
+                isRequired
                 label="Select Delivery Mode"
                 defaultName=""
                 defaultValue=""

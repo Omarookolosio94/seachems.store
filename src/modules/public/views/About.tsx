@@ -11,8 +11,9 @@ const About = () => {
   return (
     <>
       {addMetaData({
-        title: "",
-        description: " ",
+        title: "Ocean Global Chemicals Nigeria - About",
+        description:
+          "Ocean Global Chemicals Nigeria is a leading wholesale distributor of high-quality chemicals serving diverse industries across Nigeria.",
       })}
 
       <div className="m-[0px] mx-auto mb-[34px] h-full w-11/12 overflow-hidden pt-[20px] md:w-4/5">
@@ -32,10 +33,11 @@ const About = () => {
           <div className="h-full w-full sm:w-1/2">
             <h5 className="mb-5 text-[28px] font-[500]">Our Story</h5>
             <p className="mb-5">
-              Seachems NG is a leading wholesale distributor of high-quality
-              chemicals serving diverse industries across Nigeria. We offer a
-              comprehensive range of products, competitive pricing, reliable
-              supply, and expert support to meet your specific needs.
+              Ocean Global Chemicals Nigeria is a leading wholesale distributor
+              of high-quality chemicals serving diverse industries across
+              Nigeria. We offer a comprehensive range of products, competitive
+              pricing, reliable supply, and expert support to meet your specific
+              needs.
             </p>
 
             <p>

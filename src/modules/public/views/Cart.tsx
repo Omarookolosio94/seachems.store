@@ -30,8 +30,8 @@ const Cart = () => {
   return (
     <>
       {addMetaData({
-        title: "",
-        description: " ",
+        title: "Ocean Global Chemicals Nigeria - Cart",
+        description: "Shop and manage your cart",
       })}
 
       <div className="m-[0px] mx-auto mb-[34px] h-full w-11/12 overflow-hidden pt-[20px] md:w-4/5">

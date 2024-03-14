@@ -8,7 +8,7 @@ declare global {
     categoryId: string | null;
     category: Category | null;
     tags: string | null;
-    gallery: string | null;
+    gallery: ProductGallery[];
     manufacturedBy: string | null;
     qrCodeUrl: string | null;
     size: string;

@@ -34,8 +34,9 @@ const Contact = () => {
   return (
     <>
       {addMetaData({
-        title: "",
-        description: " ",
+        title: "Ocean Global Chemicals Nigeria - Contact",
+        description:
+          "We are available 24/7 days a week. Call us on +234 090 000 00000, or mail us on oceanglobalchems@gmail.com",
       })}
 
       <div className="m-[0px] mx-auto mb-[34px] h-full w-11/12 overflow-hidden pt-[20px] md:w-4/5">
@@ -53,7 +54,7 @@ const Contact = () => {
 
         <section className="mb-[28px] flex flex-col gap-2 lg:flex-row">
           <div className="w-full lg:w-1/3">
-            <div className="border-gray flex flex-col justify-between gap-3 rounded-[4px] border p-5 sm:flex-row lg:flex-col lg:gap-5 lg:p-3">
+            <div className="flex flex-col justify-between gap-3 rounded-[4px] border border-gray p-5 sm:flex-row lg:flex-col lg:gap-5 lg:p-3">
               <div className="mr-3 w-full border-b border-r border-r-white pb-5 sm:w-1/2 sm:border-b-white sm:border-r-black lg:w-full lg:border-b lg:border-b-black lg:border-r-white lg:pb-5">
                 <div className="mb-3 flex items-center gap-2">
                   <div className="rounded-full bg-brand p-2">
@@ -98,12 +99,14 @@ const Contact = () => {
                   boxStyle="w-full sm:w-1/3"
                   label="Your Name"
                   isRequired
+                  disabled
                   name="name"
                   value={feedback?.name}
                   onChange={handleFormChange}
                 />
 
                 <InputField
+                  disabled
                   boxStyle="w-full sm:w-1/3"
                   label="Your Email"
                   name="email"
@@ -113,6 +116,7 @@ const Contact = () => {
                 />
 
                 <InputField
+                  disabled
                   boxStyle="w-full sm:w-1/3"
                   label="Your Phone Number"
                   isRequired
@@ -123,6 +127,7 @@ const Contact = () => {
               </div>
 
               <TextField
+                disabled
                 boxStyle="mb-3"
                 label="Your Message"
                 textareaStyle="w-full bg-shade"
@@ -136,6 +141,7 @@ const Contact = () => {
 
               <div className="flex items-center justify-end">
                 <button
+                  disabled
                   className={`${btn} w-full border bg-brand text-[12px] font-[500] text-white sm:w-1/3 lg:w-1/3`}
                 >
                   Send Message

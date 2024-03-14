@@ -37,8 +37,9 @@ const Home = () => {
   return (
     <>
       {addMetaData({
-        title: "",
-        description: " ",
+        title: "Ocean Global Chemicals",
+        description:
+          "Ocean Global Chemicals Nigeria - Buy high quality chemicals.",
       })}
 
       <div className="mx-auto mb-[34px] mt-[-20px] h-full w-11/12 overflow-hidden md:w-4/5">

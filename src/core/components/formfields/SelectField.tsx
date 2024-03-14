@@ -61,7 +61,7 @@ function SelectField({
             key={index}
             className="duration-2000 mt-1 block  text-[12px] text-red-500 transition-all ease-in-out"
           >
-            {error?.errorMessage}
+            {error}
           </span>
         ))}
     </div>
