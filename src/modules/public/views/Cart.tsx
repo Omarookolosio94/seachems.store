@@ -2,12 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
-import { product2, product3 } from "core/consts/images";
+import { product3 } from "core/consts/images";
 import { formatCurrency } from "core/helpers/generalHelpers";
-import { Delete, Minus, Plus, XCircle } from "react-feather";
+import { Delete } from "react-feather";
 import { btn, invoiceGroup } from "core/consts/styling";
 import PlusMinusField from "core/components/formfields/PlusMinusField";
-import { useState } from "react";
 import useProductStore from "core/services/stores/useProductStore";
 import notification from "core/helpers/notification";
 

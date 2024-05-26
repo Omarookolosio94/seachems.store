@@ -8,6 +8,7 @@ import Privacy from "./views/Privacy";
 import Products from "./views/Products";
 import SingleProduct from "./views/SingleProduct";
 import Terms from "./views/Terms";
+import TrackOrder from "./views/TrackOrder";
 
 const routes = [
   {
@@ -44,6 +45,13 @@ const routes = [
     path: "checkout",
     icon: "",
     component: <Checkout />,
+  },
+  {
+    name: "Track Order",
+    layout: "/",
+    path: "track-order",
+    icon: "",
+    component: <TrackOrder />,
   },
   {
     name: "About",

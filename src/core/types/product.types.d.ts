@@ -71,4 +71,75 @@ declare global {
     url: string;
     isDefault: string;
   }
+
+  interface OrderItem {
+    productId: string;
+    productName: string;
+    unitPriceAtPurchase: number;
+    costPriceAtPurchase: number;
+    quantity: number;
+    unit: string;
+    quantityNarration: string;
+  }
+
+  interface OrderTimeline {
+    process: string;
+    initiatedBy: string;
+    instruction: string;
+    dateAdded: string;
+  }
+
+  interface OrderDetail {
+    id: string;
+    code: string;
+    cart: OrderItem[];
+    cartTotal: number;
+    tax: number;
+    deliveryFee: number;
+    totalPaid: number;
+    status: string;
+    paymentMethod: string;
+    deliveryMethod: string;
+    isPaid: boolean;
+    customerName: string;
+    deliveryAddress: string;
+    state: string;
+    lga: string;
+    customerEmail: string;
+    customerPhone: string;
+    businessName: string;
+    datePaid: string;
+    dateAdded: string;
+    lastUpdated: string;
+    timeLine: OrderTimeline[];
+    lastUpdatedBy: string;
+    employerId: string;
+    employer: Employer;
+  }
+
+  interface Logo {
+    id: string;
+    name: string;
+    url: string;
+    isDefault: boolean;
+  }
+
+  interface Employer {
+    id: string;
+    name: string;
+    email: string;
+    logo: Logo[];
+    about: string;
+    caption: string;
+    services: string;
+    termsAndConditions: string;
+    privacyPolicy: string;
+    legalDocument: string;
+    headOfficeAddress: string;
+    contactLine: string;
+    weblink: string;
+    isVerified: boolean;
+    dateRegistered: string;
+    lastUpdated: string;
+  }
 }

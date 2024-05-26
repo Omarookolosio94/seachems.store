@@ -3,6 +3,7 @@ import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import {
   addOrder,
   getCategories,
+  getOrderById,
   getProductById,
   getProducts,
 } from "../api/product.api";
@@ -19,6 +20,7 @@ type State = {
   product: Product | null;
   cart: Cart[];
   categories: Category[];
+  order: OrderDetail | null;
   getProducts: (
     category?: string,
     page?: number,
@@ -29,6 +31,7 @@ type State = {
   addToCart: (product: Product, quantity: number) => Promise<void>;
   removeFromCart: (id: string) => Promise<void>;
   placeOrder: (order: NewOrder) => Promise<any>;
+  getOrderById: (orderId: string) => Promise<any>;
   clearCart: () => Promise<void>;
   reset: () => void;
 };
@@ -44,6 +47,7 @@ const initialState = {
   categories: [],
   product: null,
   cart: [],
+  order: null,
 };
 
 const useProductStore = create<State>()(
@@ -82,6 +86,15 @@ const useProductStore = create<State>()(
           var res = await getProductById(id);
 
           set({ product: res?.data?.data });
+
+          set({ isLoading: false });
+        },
+        getOrderById: async (orderId) => {
+          set({ isLoading: true });
+
+          var res = await getOrderById(orderId);
+
+          set({ order: res?.data?.data });
 
           set({ isLoading: false });
         },
