@@ -1,5 +1,5 @@
 import PlusMinusField from "core/components/formfields/PlusMinusField";
-import { product1, product2, product3 } from "core/consts/images";
+import defaultImg from "assets/img/defaultProductImg.svg";
 import { btn, gallery } from "core/consts/styling";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import useProductStore from "core/services/stores/useProductStore";
@@ -36,7 +36,7 @@ const ProductDetail = ({
   };
 
   useEffect(() => {
-    setDisplayedImg(product1);
+    setDisplayedImg(product?.gallery[0]?.url ?? defaultImg);
   }, [product?.id]);
 
   return (
@@ -45,33 +45,36 @@ const ProductDetail = ({
         <section className={`flex flex-col gap-5 sm:flex-row ${boxStyle}`}>
           <div className="flex w-full flex-col-reverse gap-3 sm:w-3/5 sm:flex-row">
             <div className="flex w-full justify-center gap-5 sm:block sm:w-[80px]">
-              <div
-                className={`${gallery}`}
-                onClick={() => setDisplayedImg(product1)}
-              >
-                <img src={product1} alt="" className="h-2/3 w-2/3" />
-              </div>
-              <div
-                className={`${gallery}`}
-                onClick={() => setDisplayedImg(product2)}
-              >
-                <img src={product2} alt="" className="h-2/3 w-2/3" />
-              </div>
-              <div
-                className={`${gallery}`}
-                onClick={() => setDisplayedImg(product3)}
-              >
-                <img src={product3} alt="" className="h-2/3 w-2/3" />
-              </div>
-              <div
-                className={`${gallery} !mb-0`}
-                onClick={() => setDisplayedImg(product1)}
-              >
-                <img src={product1} alt="" className="h-2/3 w-2/3" />
-              </div>
+              {product?.gallery?.length > 0
+                ? product?.gallery?.map((pic) => (
+                    <div
+                      key={pic?.id}
+                      className={`${gallery}`}
+                      onClick={() => setDisplayedImg(pic?.url)}
+                    >
+                      <img
+                        src={pic?.url}
+                        alt={pic?.name}
+                        className="h-2/3 w-2/3"
+                      />
+                    </div>
+                  ))
+                : [1, 2, 3, 4].map((count: any) => (
+                    <div
+                      key={count}
+                      className={`${gallery}`}
+                      onClick={() => setDisplayedImg(defaultImg)}
+                    >
+                      <img
+                        src={defaultImg}
+                        alt="default image"
+                        className="h-2/3 w-2/3"
+                      />
+                    </div>
+                  ))}
             </div>
             <div className="flex h-full w-full items-center justify-center rounded-[4px] bg-[#f5f5f5] py-5 sm:py-0">
-              <div className="flex h-2/3 w-2/3 items-center justify-center">
+              <div className="flex h-2/3 w-2/3 items-center justify-center overflow-y-scroll">
                 <img src={displayedImg} alt="" className="" />
               </div>
             </div>

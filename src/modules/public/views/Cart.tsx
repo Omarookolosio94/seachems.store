@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { addMetaData } from "core/helpers/seoHelpers";
 import { Link } from "react-router-dom";
-import { product3 } from "core/consts/images";
+import defaultImg from "assets/img/defaultProductImg.svg";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import { Delete } from "react-feather";
 import { btn, invoiceGroup } from "core/consts/styling";
@@ -62,9 +62,13 @@ const Cart = () => {
               >
                 <div
                   className="hover:text-underline flex w-full items-center gap-3 hover:cursor-pointer sm:w-1/4"
-                  onClick={() => navigate(`/products/sasasasasas`)}
+                  onClick={() => navigate(`/products/${item?.productId}`)}
                 >
-                  <img src={product3} alt="" className="w-[32px]" />
+                  <img
+                    src={item?.product?.gallery[0]?.url ?? defaultImg}
+                    alt={item?.product?.name}
+                    className="w-[32px]"
+                  />
                   <p>{item?.product?.name}</p>
                 </div>
 

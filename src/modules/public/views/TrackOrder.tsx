@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { formatCurrency, formatDate } from "core/helpers/generalHelpers";
 import { btn, invoiceGroup } from "core/consts/styling";
-import { product3 } from "core/consts/images";
 import useProductStore from "core/services/stores/useProductStore";
+import defaultImg from "assets/img/defaultProductImg.svg";
 
 const TrackOrder = () => {
   const [searchParams, setSearchParams]: any = useSearchParams();
@@ -117,8 +117,7 @@ const TrackOrder = () => {
                       className={`${invoiceGroup} !border-none`}
                     >
                       <div className="flex w-2/3 items-center gap-3">
-                        <img src={product3} alt="" className="w-[32px]" />
-                        <p>
+                        <p className="font-semibold">
                           {item?.productName} (x {item?.quantity})
                         </p>
                       </div>

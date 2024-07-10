@@ -9,7 +9,7 @@ import { STATES_AND_LGAS } from "core/consts/statesandlgas";
 import { DELIVERY_MODE } from "core/consts/systemconst";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import { btn, invoiceGroup } from "core/consts/styling";
-import { product1, product2, product3 } from "core/consts/images";
+import defaultImg from "assets/img/defaultProductImg.svg";
 import useProductStore from "core/services/stores/useProductStore";
 import notification from "core/helpers/notification";
 
@@ -374,7 +374,11 @@ const Checkout = () => {
                       className={`${invoiceGroup} !border-none`}
                     >
                       <div className="flex w-2/3 items-center gap-3">
-                        <img src={product3} alt="" className="w-[32px]" />
+                        <img
+                          src={item?.product?.gallery[0]?.url ?? defaultImg}
+                          alt={item?.product?.name}
+                          className="w-[32px]"
+                        />
                         <p>
                           {item?.product?.name} (x{item?.quantity})
                         </p>

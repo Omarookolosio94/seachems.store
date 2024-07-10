@@ -1,4 +1,4 @@
-import { product3 } from "core/consts/images";
+import defaultImg from "assets/img/defaultProductImg.svg";
 import { formatCurrency } from "core/helpers/generalHelpers";
 import useProductStore from "core/services/stores/useProductStore";
 import { Delete, Maximize, ShoppingCart } from "react-feather";
@@ -39,7 +39,11 @@ const Product = ({
               <Maximize className="h-[18px] sm:h-[24px]" />
             </div>
           )}
-          <img src={product3} alt={product?.name} className="h-2/3" />
+          <img
+            src={product?.gallery[0]?.url ?? defaultImg}
+            alt={product?.name}
+            className="h-2/3"
+          />
         </div>
 
         {cart.some((item) => item.productId == product?.id) ? (
