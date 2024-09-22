@@ -115,6 +115,7 @@ declare global {
     lastUpdatedBy: string;
     employerId: string;
     employer: Employer;
+    paymentInfo: PaymentInfo[];
   }
 
   interface Logo {
@@ -141,5 +142,16 @@ declare global {
     isVerified: boolean;
     dateRegistered: string;
     lastUpdated: string;
+  }
+
+  interface PaymentInfo {
+    id: string;
+    type: string;
+    bank: string;
+    accountName: string;
+    accountNumber: string;
+    isActive: boolean;
+    dateAdded: string;
+    employerId: string;
   }
 }

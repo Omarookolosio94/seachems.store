@@ -90,7 +90,7 @@ const TrackOrder = () => {
                         <p className="font-semibold">
                           {index + 1} ORDER {act?.process}
                         </p>
-                        <p className="mb-1">Initiated By: {act?.initiatedBy}</p>
+                        {/* <p className="mb-1">Initiated By: {act?.initiatedBy}</p> */}
                         <p className="mb-1">
                           Date:{" "}
                           {act?.dateAdded == null
@@ -98,7 +98,7 @@ const TrackOrder = () => {
                             : formatDate(act?.dateAdded)}
                         </p>
                         <p>Instruction:</p>
-                        <p>{act?.instruction}</p>
+                        <p>{act?.instruction ?? "N/A"}</p>
                       </div>
                     ))}
                 </div>
@@ -155,6 +155,19 @@ const TrackOrder = () => {
                 <p>Payment Status:</p>
 
                 <p>{order?.isPaid ? "Paid" : "Not Paid"}</p>
+              </div>
+
+              <div className="border-b-gray py-3">
+                <p className="mb-2">Payment Accounts:</p>
+
+                {order &&
+                  order?.paymentInfo != null &&
+                  order?.paymentInfo?.length > 0 &&
+                  order?.paymentInfo?.map((acc) => (
+                    <p className="mb-1" key={acc?.id}>
+                      {acc?.bank} - {acc?.accountNumber} - {acc?.accountName}
+                    </p>
+                  ))}
               </div>
             </div>
 
